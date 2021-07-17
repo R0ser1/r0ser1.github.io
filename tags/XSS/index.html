@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/CTF/index.html">
+<meta property="og:url" content="http://example.com/tags/XSS/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="R0ser1">
@@ -384,25 +384,24 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2021/05/03/CTF%E5%8F%8D%E5%BA%8F%E5%88%97%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8/" >
+        <a class="abstract-title" href = "/2021/05/17/XSS%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/" >
             
-                <span>CTF反序列字符串逃逸</span>
+                <span>XSS一些记录</span>
         </a>
         <div class="abstract-content">
-            刷了一下CTF反序列化的题，去年没有好好了解。又补了一次PHP，害太菜了。每天看看别人的博客真的可以鼓舞人。简单记录一下两道字符串逃逸问题
-推荐一个反序列化总结的很好的笔记https://www.cnblogs.com/wjrblogs/p/12800358.html
-123456789101112131415161718192021222324//变长 直接构造多个关键词，这样就能逃出几个字符&lt;?phperror_reporting(255);class A&#123;    public  $filename = __FILE__;    public  function __...
+            XSS一些总结除了script以外大多标签自动加载触发JS代码大多用的都是on事件，以下标签都可以用下面的方法去打Cookie以及url等
+123456789101112131415161718192021常见标签&lt;img&gt;&lt;input&gt;&lt;details&gt;&lt;svg&gt;&lt;select&gt;&lt;iframe&gt;&lt;video&gt;&lt;audio&gt;&lt;textarea&gt;  &lt;body&gt;&lt;Style&gt;&lt;Media&gt;such as: 其他的标签自动触发百度一下就好了&lt;b...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/03</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/17</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "XSS">XSS</a>
     
 </div>
             

