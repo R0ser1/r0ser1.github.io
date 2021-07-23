@@ -746,27 +746,25 @@ BugscanTeam 项...
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2021/05/11/Mysql%E4%B8%80%E4%BA%9B%E5%A4%87%E5%BF%98%E5%BD%95/" >
+        <a class="abstract-title" href = "/2021/05/03/CTF%E5%8F%8D%E5%BA%8F%E5%88%97%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8/" >
             
-                <span>Mysql注入一些备忘录</span>
+                <span>CTF反序列字符串逃逸</span>
         </a>
         <div class="abstract-content">
-             Mysql注入一些备忘录
-
-获取信息函数12345database() 获取当前数据库名user()     获取当前用户version()  获取当前版本@@datadir  数据库路径  反猜路径@@version_compile_os 操作系统 
-
-Union查询1234567891011121314查表union select 1,table_name,3 from information_schema.tables where table_schema&#x3D;0x74657374(数据库名test的Hex) limit 0,1--+查字段union select 1,co...
+            刷了一下CTF反序列化的题，去年没有好好了解。又补了一次PHP，害太菜了。每天看看别人的博客真的可以鼓舞人。简单记录一下两道字符串逃逸问题
+推荐一个反序列化总结的很好的笔记https://www.cnblogs.com/wjrblogs/p/12800358.html
+123456789101112131415161718192021222324//变长 直接构造多个关键词，这样就能逃出几个字符&lt;?phperror_reporting(255);class A&#123;    public  $filename = __FILE__;    public  function __...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/11</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/05/03</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "SQL注入">SQL注入</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "CTF">CTF</a>
     
 </div>
             
@@ -1055,18 +1053,9 @@ Union查询1234567891011121314查表union select 1,table_name,3 from information
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 12
+        Total : 11
         </div>
         <!-- search  -->
         
@@ -1123,11 +1112,6 @@ Union查询1234567891011121314查表union select 1,table_name,3 from information
     
         <li class="archive-post-item">
             <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2021/05/12/DNSlog%E6%B3%A8%E5%85%A5/" >DNSlog注入</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2021/05/11/Mysql%E4%B8%80%E4%BA%9B%E5%A4%87%E5%BF%98%E5%BD%95/" >Mysql注入一些备忘录</a>
         </li>
     
     
