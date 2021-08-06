@@ -384,6 +384,41 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2021/08/06/%E7%86%8A%E6%B5%B7CMS1-0%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >
+            
+                <span>熊海CMS1.0代码审计学习</span>
+        </a>
+        <div class="abstract-content">
+            前言很老的CMS我们就只审计一下前台的东西就行了，审计后台有点鸡肋。xss一堆评论啥的都有，环境有问题就不测试了，拉跨的代码，后面还是换MVC的代码来学习吧。
+环境
+熊海cms1.0 （http://js.down.chinaz.com/201503/xhcms_v1.0.rar）seay、PHPstormPHP 5.2 [毕竟很老的CMS了版本高了容易出问题]
+
+漏洞login注入和index Cookie欺骗进后台我们先直接看一下login吧
+
+我们构造user=&#39;or updatexml(1,concat(0x7e,user(),0x7e),0) #即可当然也可以根据数据库...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/08/06</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "代码审计">代码审计</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2021/08/06/bluecms1-6%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >
             
                 <span>bluecms1.6代码审计学习</span>
@@ -734,38 +769,6 @@ openssl x509 -inform DER -in cacert.der -out cacert.pemopenssl x509 -inform PEM 
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2021/07/17/Tryhackme%E8%AE%B0%E5%BD%95liunx%E6%8F%90%E6%9D%83/" >
-            
-                <span>Tryhackme记录liunx提权</span>
-        </a>
-        <div class="abstract-content">
-            Tryhackme学习liunx提权
-
-
-LinEnum 是一个简单的 bash 脚本，它执行与权限提升相关的常见命令，从而节省时间并允许投入更多精力来获取 root 权限https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh
-
-一、滥用SUIID/GUID文件查找和利用 SUID 文件
-
-Linux 提权利用的第一步是检查设置了 SUID/GUID 位的文件。这意味着可以使用文件所有者/组的权限运行一个或多个文件。在这种情况下，作为超级用户。我们可以利用它来获得具有这些权限的 shell！
-
- 什么是 SUID 二进制文...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/07/17</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
@@ -1035,9 +1038,24 @@ Linux 提权利用的第一步是检查设置了 SUID/GUID 位的文件。这意
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 16
+        Total : 17
         </div>
         <!-- search  -->
         
@@ -1050,6 +1068,11 @@ Linux 提权利用的第一步是检查设置了 SUID/GUID 位的文件。这意
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2021/08/06/%E7%86%8A%E6%B5%B7CMS1-0%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >熊海CMS1.0代码审计学习</a>
+        </li>
     
     
         <li class="archive-post-item">
